@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import Display from '../components/display.jsx'
+
+
 
 const Header = () => {
+ const [open, setOpen] = useState(true)
   return (
-    <div className='w-1/5 border border-r-black'>
-      
-    </div>
+      <Display open={open} setOpen={setOpen}/>
   )
 }
 
