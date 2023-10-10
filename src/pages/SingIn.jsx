@@ -1,7 +1,7 @@
 // Importamos los módulos y recursos necesarios
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux'; // Para usar Redux
-import { loginRequest, loginSuccess, loginFailure } from '../redux/actions/singInAction'; // Asegúrate de que la ruta sea correcta
+import Login from '../redux/actions/singInAction'; // Asegúrate de que la ruta sea correcta
 
 import imagenmate from '../assets/imagen-mate.jpeg'; // Imagen de fondo
 import { useNavigate } from 'react-router-dom'; // Para la navegación en React Router
@@ -26,26 +26,11 @@ function SignIn() {
 
         const userData = { email, password }; // Datos del usuario a enviar al servidor
 
-        try {
-            dispatch(loginRequest()); // Dispara la acción de solicitud de inicio de sesión
-
-            // Simula un inicio de sesión exitoso (esto debería ser una llamada a tu API)
-            setTimeout(() => {
-                const fakeUserData = {
-                    id: 1,
-                    username: 'ejemplo',
-                    online: true,
-                };
-
-                dispatch(loginSuccess(fakeUserData)); // Dispara la acción de éxito con los datos del usuario
-                navigate("/"); // Redirige al usuario a la página principal
-            }, 2000); // Simulación de retardo en la respuesta (puedes reemplazar esto con la lógica de tu API)
-
-        } catch (error) {
-            // Si hay un error, dispara la acción de fallo con el mensaje de error
-            dispatch(loginFailure(error.message));
-            console.error(error);
-        }
+        dispatch(Login(userData))
+            .then(res =>
+                console.log(res))
+            .catch(error =>
+                console.log(error))
     };
 
     return (
@@ -82,18 +67,20 @@ function SignIn() {
 
                             <button
                                 type="submit"
-                                className="mt-3 text-lg font-semibold bg-gray-800 w-full text-white rounded-lg px-6 py-3 block shadow-xl hover:text-white hover:bg-black"
+                                className="bg-blue-500 hover:bg-blue-700  text-white font-bold py-2 px-4 rounded w-full"
+                                style={{ backgroundImage: 'url("public/img/1.png")', backgroundSize: 'cover' }}
                             >
-                                Sign In
+                                Sing In!
                             </button>
                         </div>
                     </form>
                 </div>
-                <div className="w-1/2 pr-4 p-8">
+                <div className="w-1/2 pr-4 p-8 shadow-md rounded bg-white px-8 pb-4 mb-4">
                     <img src={imagenmate} alt="Login" className="w-full h-auto" />
                 </div>
-            </div>
-        </div>
+
+            </div >
+        </div >
     );
 }
 
