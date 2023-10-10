@@ -5,6 +5,7 @@ import Layout from '../layouts/Layout'
 import SingIn from '../pages/SingIn'
 import Profile from '../pages/Profile'
 import Register from '../components/Register'
+import Checkout from '../pages/Checkout'
 
 
 const router = createBrowserRouter([
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
                 element: <Home />,
             },
             {
-                path: "/singIn",
+                path: "/SingIn",
                 element: <SingIn />,
             },
             {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
                 path: "/Register",
                 element: <Register />,
             },
+            {
+                path: "/Checkout",
+                element: <Checkout/>, 
+            }
         ],
     },
 ])
