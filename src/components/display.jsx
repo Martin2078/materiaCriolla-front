@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
-import CheckoutIcon from '../../public/images/checkout.png'
-import LogOut from '../../public/images/logOut.png'
-import Information from '../../public/images/information.png'
+import CheckoutIcon from '../../public/images/checkout.png?url'
+import LogOut from '../../public/images/logOut.png?url'
+import Information from '../../public/images/information.png?url'
 import { Link } from 'react-router-dom'
-import HomeIcon from '../../public/images/home.png'
-import ProductsIcon from '../../public/images/mate.png'
-import menu from '../../public/images/menu.png'
-import close from '../../public/images/close.png'
-import logIn from '../../public/images/logIn.png'
-import register from '../../public/images/register.png'
+import HomeIcon from '../../public/images/home.png?url'
+import ProductsIcon from '../../public/images/mate.png?url'
+import menu from '../../public/images/menu.png?url'
+import close from '../../public/images/close.png?url'
+import logIn from '../../public/images/logIn.png?url'
+import register from '../../public/images/register.png?url'
 
 const display = ({ open, setOpen }) => {
     return (

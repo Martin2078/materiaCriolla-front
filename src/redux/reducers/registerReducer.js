@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import register from '../actions/registerAction.js'
+import register from '../actions/registerAction'
 
 const initialState = {
     data:{},
@@ -8,7 +8,7 @@ const initialState = {
 
 const registerReducer = createReducer(initialState, (builder) =>
     builder
-        .addCase(register.fullfilled, (state, action) => {
+        .addCase(register.fulfilled, (state, action) => {
             const newState = {
                 ...state
             }
