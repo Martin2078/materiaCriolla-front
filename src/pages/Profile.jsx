@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import editIcon from '../../public/images/edit.png?url'
 import flecha from '../../public/images/flechaPaginacion.png?url'
