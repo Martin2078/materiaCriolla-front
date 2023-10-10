@@ -4,7 +4,7 @@ import '../Carousel.css';
 
 const MyCarousel = () => {
   return (
-    <div className="w-full max-w-screen-xl mx-auto flex">
+    <div className="w-full max-w-screen-xl mx-auto flex lg:px-5">
       <div className="w-3/4">
         <div className="p-4 shadow-lg rounded-lg">
           <Carousel
