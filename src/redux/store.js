@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit"
+import authReducer from "./reducers/singInReducer"
 
-const store=configureStore({
-    reducer:{
-
+const store = configureStore({
+    reducer: {
+        profile: authReducer,
     }
 })
 
