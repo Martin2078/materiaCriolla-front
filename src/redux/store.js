@@ -4,9 +4,8 @@ import registerReducer from "./reducers/registerReducer"
 
 const store=configureStore({
     reducer:{
-        register : registerReducer
+        register : registerReducer,
         profile: authReducer,
-
     }
 })
 

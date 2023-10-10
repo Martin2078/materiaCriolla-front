@@ -1,6 +1,6 @@
 const Register = () => {
   return (
-    <div className="register-container h-screen flex flex-col md:flex-row">
+    <div className="register-container w-full h-screen flex flex-col md:flex-row">
       <div className="w-full md:w-2/3 flex flex-col items-center justify-center p-8">
         <h1 className="text-3xl font-bold mb-1">Join Us</h1>
         <form className="bg-white shadow-md rounded px-8 pb-8 mb-4">

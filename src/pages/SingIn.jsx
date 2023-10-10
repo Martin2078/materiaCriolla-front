@@ -49,7 +49,7 @@ function SignIn() {
     };
 
     return (
-        <div className="container max-w-full mx-auto md:py-24 px-6 h-screen">
+        <div className="container w-full mx-auto md:py-24 px-6 h-screen">
             <div className="max-w-screen-xl mx-auto flex items-center justify-center">
 
                 <div className="w-1/2 pl-4">
