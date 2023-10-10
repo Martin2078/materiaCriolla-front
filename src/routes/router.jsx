@@ -1,4 +1,3 @@
-import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import Home from '../pages/Home'
 import Layout from '../layouts/Layout'
@@ -17,14 +16,13 @@ const router = createBrowserRouter([
             {
                 path:"/Me",
                 element:<Profile/>
-            }
+            },
+            {
+                path: "/register",
+                element: <Register />,
+            },
         ],
     },
-    {
-        path: "/register",
-        element: <Register />,
-    },
 ])
-
 
 export default router;
