@@ -1,21 +1,26 @@
-// Define el tipo de acción para iniciar sesión
-export const LOGIN_REQUEST = 'LOGIN_REQUEST'; // Este es el tipo de acción para solicitar el inicio de sesión.
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'; // Este es el tipo de acción para manejar el inicio de sesión exitoso.
-export const LOGIN_FAILURE = 'LOGIN_FAILURE'; // Este es el tipo de acción para manejar el fallo en el inicio de sesión.
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+const api = 'http://localhost:4000';
+// Acción asincrónica para iniciar sesión
+const login = createAsyncThunk('login', async (data) => {
 
-// Acción para solicitar el inicio de sesión
-export const loginRequest = () => ({
-    type: LOGIN_REQUEST, // Retorna un objeto con el tipo de acción "LOGIN_REQUEST".
-});
+    try {
+        let res = await axios.post(api + '/auth/signIn', data)
+        localStorage.setItem('token', res.data.token);
+        let user = res.data.user;
+        console.log(user)
+        const email = JSON.stringify(user.email)
+        const photo = JSON.stringify(user.photo)
+        const role = user.role
+        localStorage.setItem("email", email)
+        localStorage.setItem("photo", photo)
+        localStorage.setItem("role", role)
 
-// Acción para manejar el inicio de sesión exitoso
-export const loginSuccess = (userData) => ({
-    type: LOGIN_SUCCESS, // Retorna un objeto con el tipo de acción "LOGIN_SUCCESS".
-    payload: userData, // El "payload" contiene los datos del usuario que han iniciado sesión con éxito.
-});
+        return res.data
 
-// Acción para manejar el fallo en el inicio de sesión
-export const loginFailure = (error) => ({
-    type: LOGIN_FAILURE, // Retorna un objeto con el tipo de acción "LOGIN_FAILURE".
-    payload: error, // El "payload" contiene información sobre el error que ocurrió durante el inicio de sesión.
-});
+
+    } catch (error) {
+        console.log("error", error)
+    }
+})
+export default login

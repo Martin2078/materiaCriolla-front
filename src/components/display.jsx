@@ -50,6 +50,7 @@ const display = ({ open, setOpen }) => {
                     <img className='w-6 h-6 ' src={CheckoutIcon} alt="" />
                     {open && "Checkout"}
                 </Link></li>
+
                 {/* {!token ? <>
                     <li className='min-[320px]:w-5/12 lg:w-full'>
                     <Link to={'/'} className='flex gap-4'>
