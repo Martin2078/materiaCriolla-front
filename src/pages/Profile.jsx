@@ -41,14 +41,14 @@ const Profile = () => {
             {buy && <BuyDetail name={buyDetail.name} date={buyDetail.date} price={buyDetail.price} state={buyDetail.state} photo={buyDetail.photo} />}
             <div className='w-full h-screen flex flex-col justify-center gap-10 px-5'>
                 <h1 className='text-4xl '>Profile</h1>
-                <div className='w-full h-5/6 flex flex-col'>
+                <div className='w-full h-5/6 flex flex-col gap-10 lg:gap-0'>
                     {/* firstDiv */}
-                    <div className='w-full h-3/6 bg-white flex justify-center gap-24 items-center py-5'>
+                    <div className='w-full h-4/6 lg:h-3/6 bg-white flex flex-col lg:flex-row justify-center lg:gap-24 gap-8 items-center py-5'>
                         {/* image */}
-                        <div className='relative h-4/6 w-3/12 rounded-full flex items-center'>
+                        <div className='relative h-4/6 w-8/12 lg:w-3/12 rounded-full flex items-center'>
                             <div className='delay-100 w-full px-2 h-full rounded-full absolute bottom-0  object-center opacity-0 hover:opacity-80 flex justify-center items-center'>
                                 <div className='w-full h-16 bg-neutral-200 border-y border-black flex justify-center items-center'>
-                                    <p className='text-3xl'>Change Image</p>
+                                    <p className='text-xl lg:text-3xl'>Change Image</p>
                                     <input className='opacity-0 cursor-pointer absolute' onClick={(e) => getFile(e)} type="file" label={"Change Image"} />
                                 </div>
                             </div>
@@ -60,7 +60,7 @@ const Profile = () => {
                             <img className='object-cover rounded-full' src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" />
                         </div>
                         {/* information */}
-                        <div className='w-6/12 h-4/6 border relative rounded-xl border-black p-4 flex flex-col items-start justify-center'>
+                        <div className='w-full lg:w-6/12 h-4/6 border relative rounded-xl border-black p-4 flex flex-col items-start justify-center'>
                             <div className='w-full'>
                                 <h3 className='font-bold'>Name:</h3>
                                 {change ? <input className='w-8/12' onChange={(e) => setData({ ...data, name: e.target.value })} type="text" value={data.name} /> : <p>{data.name}</p>}
@@ -88,12 +88,13 @@ const Profile = () => {
                         </div>
                     </div>
                     {/* SecondDiv */}
-                    <div className='w-full h-3/6 bg-white flex justify-center py-5 px-10'>
+                    <div className='w-full h-3/6 bg-white flex justify-center py-5 lg:px-10'>
 
-                        <div className='w-10/12 py-4 border rounded-xl border-black'>
+                        <div className='w-full lg:w-10/12 h-fit py-4 border rounded-xl border-black'>
                             <div className='flex w-full h-1/6 justify-center items-start'>
                                 <p className='font-bold text-3xl'>Your Last Buys</p>
                             </div>
+                            
                             {/* {user?.lastBuys.length>0?
                             user.lastBuys.map((compra)=>{
                                 <div className='h-5/6 w-full flex flex-col items-center gap-3 overflow-y-scroll '>
@@ -102,8 +103,8 @@ const Profile = () => {
                             })
                             :
                            <div className='w-full flex flex-col items-center gap-4'>
-                                <p className='text-xl'>No se ha efectuado ninguna compra por el momento!</p>
-                                <img className='h-48 rounded-xl object-contain' src="https://www.lanacion.com.ar/resizer/v2/el-personaje-de-robert-de-niro-toma-un-mate-en-el-YHVM47N37NDA3KOE3SFNEMCGJI.jpg?auth=a6d2203b617ca6e25fa0ce494f29fafcf988fa10c165b967b828d6b15e75fc2c&width=420&height=280&quality=70&smart=false" alt="" />
+                                <p className='text-base lg:text-xl text-center'>No se ha efectuado ninguna compra por el momento!</p>
+                                <img className='h-36 lg:h-48 rounded-xl object-contain' src="https://www.lanacion.com.ar/resizer/v2/el-personaje-de-robert-de-niro-toma-un-mate-en-el-YHVM47N37NDA3KOE3SFNEMCGJI.jpg?auth=a6d2203b617ca6e25fa0ce494f29fafcf988fa10c165b967b828d6b15e75fc2c&width=420&height=280&quality=70&smart=false" alt="" />
                             </div>
                         } */}
 
