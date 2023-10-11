@@ -25,10 +25,12 @@ function SignIn() {
         }
 
         const userData = { email, password }; // Datos del usuario a enviar al servidor
-
         dispatch(Login(userData))
-            .then(res =>
-                console.log(res))
+            .then(res =>{
+                console.log(res);
+                navigate("/")
+            }
+                )
             .catch(error =>
                 console.log(error))
     };

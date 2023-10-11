@@ -11,10 +11,15 @@ import close from '../../public/images/close.png?url'
 import logIn from '../../public/images/signIn.png'
 import register from '../../public/images/register.png?url'
 import logo from '../../public/images/logo.jpeg'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
+import signOut from '../redux/actions/signOutAction.js'
 
 const display = ({ open, setOpen }) => {
     const {user,token}=useSelector((store)=>store.profile)
+    const dispatch=useDispatch()
+    async function closeAccount() {
+        dispatch(signOut(token))
+    }
     return (
 
         <div className={`relative ${open ? "lg:w-3/12" : "lg:w-1/12"} lg:h-screen flex flex-col items-center justify-between lg:pt-20 lg:pb-10 min-[320px]:py-5 border-b lg:border-r lg:border-b-0 border-black min-[320px]:gap-5`}>
@@ -30,8 +35,8 @@ const display = ({ open, setOpen }) => {
                 </Link>
                 {token&&open &&
                     <div>
-                        <h1 className='font-bold text-xl'>name</h1>
-                        <p className='text-sm'>email@gmail.com</p>
+                        <h1 className='font-bold text-xl'>{user.name||"not finded"}</h1>
+                        <p className='text-sm'>{user.email}</p>
                     </div>}
             </div>
 
@@ -40,7 +45,7 @@ const display = ({ open, setOpen }) => {
                     <img className='w-6 h-6' src={HomeIcon} alt="" />
                     {open && "Home"}
                 </Link></li>
-                <li className={`${open && "min-[320px]:w-5/12"}`}><Link to={'/'} className='flex gap-4 justify-start'>
+                <li className={`${open && "min-[320px]:w-5/12"}`}><Link to={'/Products'} className='flex gap-4 justify-start'>
                     <img className='w-6 h-6' src={ProductsIcon} alt="" />
                     {open && "Products"}
                 </Link></li>
@@ -55,7 +60,7 @@ const display = ({ open, setOpen }) => {
                 {!token ? <>
                     <li className={`${open && "min-[320px]:w-5/12"}`}>
                     <Link to={'/SingIn'} className='flex gap-4 justify-start'>
-                        <img className='w-6 h-6 ' src={logIn} alt="" />
+                        <img className='w-6 h-6' src={logIn} alt="" />
                         {open && "Log In"}
                     </Link>
                     </li>
@@ -67,12 +72,12 @@ const display = ({ open, setOpen }) => {
                     </li>
                 </>
                     :<>
-                    <li className={`${open&&"min-[320px]:w-5/12"} lg:w-full`}><Link to={'/Me'} className='flex gap-4 justify-start'>
+                    <li className={`${open&&"min-[320px]:w-5/12"} lg:hidden`}><Link to={'/Me'} className='flex gap-4 justify-start'>
                         <img className='w-6 h-6 rounded-full' src={token?user.photo:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} alt="" />
                         {open && "Profile"}
                     </Link></li>
-                    <li className={`${open&&"min-[320px]:w-5/12"} lg:w-full`}>
-                    <Link to={'/'}>        <img className='w-6 h-6 rounded-full' src={LogOut} alt="" />
+                    <li className={`${open&&"min-[320px]:w-5/12"}`}>
+                    <Link onClick={()=>closeAccount()} to={'/'} className='flex gap-4 justify-start'><img className='w-6 h-6 ' src={LogOut} alt="" />
                         {open && "Log Out"}</Link>
                     </li>
                     </>

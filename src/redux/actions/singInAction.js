@@ -1,26 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-const api = 'http://localhost:4000';
+const api = 'http://localhost:8080';
 // Acción asincrónica para iniciar sesión
 const login = createAsyncThunk('login', async (data) => {
-
     try {
+        // if (data.token) {
+        //     return {token:data.token,
+        //     user:data.token}
+        // }
         let res = await axios.post(api + '/auth/signIn', data)
-        localStorage.setItem('token', res.data.token);
-        let user = res.data.user;
-        console.log(user)
-        const email = JSON.stringify(user.email)
-        const photo = JSON.stringify(user.photo)
-        const role = user.role
-        localStorage.setItem("email", email)
-        localStorage.setItem("photo", photo)
-        localStorage.setItem("role", role)
-
-        return res.data
-
-
+        localStorage.setItem('token', res.data.response.token);
+        localStorage.setItem('user',JSON.stringify(res.data.response.user))
+        return {token:res.data.response.token,
+        user:res.data.response.user}
     } catch (error) {
-        console.log("error", error)
+        return {error:error.response.data.message}
     }
 })
 export default login
