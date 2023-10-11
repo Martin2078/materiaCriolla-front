@@ -21,6 +21,7 @@ const display = ({ open, setOpen }) => {
         dispatch(signOut(token))
     }
     return (
+
         <div className={`relative ${open ? "lg:w-3/12" : "lg:w-1/12"} lg:h-screen flex flex-col items-center justify-between lg:pt-20 lg:pb-10 min-[320px]:py-5 border-b lg:border-r lg:border-b-0 border-black min-[320px]:gap-5`}>
             <img onClick={() => setOpen(!open)} className={`absolute block cursor-pointer ${!open ? "top-4 left-9 w-6" : "top-2 right-2 w-8"}`} src={!open ? menu : close} alt="" />
             <img className={`${!open && "absolute top-3 right-3"} block lg:hidden w-16`} src={logo} alt="" />
