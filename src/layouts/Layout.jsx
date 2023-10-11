@@ -3,10 +3,10 @@ import Header from './Header'
 
 const layout = () => {
   return (
-    <>
-   {/*  <Header/> */}
+    <div className='flex min-[320px]:flex-col lg:flex-row'>
+    <Header/>
     <Outlet/>
-    </>
+    </div>
   )
 }
 
