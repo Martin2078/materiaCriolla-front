@@ -1,8 +1,9 @@
 import React from 'react'
+import Products from './products'
 
 const Home = () => {
   return (
-    <div className='w-10 bg-black'>Home</div>
+    <Products/>
   )
 }
 

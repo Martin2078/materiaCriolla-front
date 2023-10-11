@@ -4,7 +4,7 @@ import Header from './Header'
 const layout = () => {
   return (
     <>
-    <Header/>
+   {/*  <Header/> */}
     <Outlet/>
     </>
   )
