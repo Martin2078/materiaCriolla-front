@@ -7,7 +7,7 @@ import remove from '../../public/images/remove.png?url'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import BuyDetail from '../components/BuyDetail'
-// import signInAction from '../redux/actions/singInAction'
+import login from '../redux/actions/singInAction'
 import NotAllow from '../components/NotAllow'
 
 const Profile = () => {
@@ -22,14 +22,46 @@ const Profile = () => {
     function getFile(e) {
         setData({ ...data, photo: e.target.files[0] })
     }
-    // async function sendChanges() {
-    //     dispatch(signInAction(data))
-    // }
+    
     useEffect(() => {
-        if (token) {  
-        setData({ ...data, email: user.email, name: user.mail, lastName: user.lastName, address: user.address })
-        }
-    }, [])
+        if(!token.length>0){
+            if (localStorage.length>0) {
+                const tokenStorage=localStorage.getItem('token')
+                const userStorage=JSON.parse(localStorage.getItem('user'))
+                const data={user:userStorage,token:tokenStorage}
+                setData({...data,name:userStorage.name,surname:userStorage.surname,email:userStorage.email})
+                if (userStorage.address.length>0) {
+                    // setData({...data,address:{
+                    //     city:userStorage.address.city,
+                    //     country:userStorage.address.country,
+                    //     postalCode:userStorage.address.postalCode,
+                    //     province:userStorage.address.province,
+                    //     street:userStorage.address.street,
+                    //     streetNumber:userStorage.address.streetNumber
+                    // }})
+                    console.log(Object.values(userStorage.address))
+                }else{
+                    setData({...data,address:"Please provide a address"})
+                }
+                dispatch(login(data))
+            }}
+        // else{
+        //     setData({...data,name:user.name,surname:user.surname,email:user.email})
+        //         if (user.address.length>0) {
+        //             setData({...data,address:{
+        //                 city:user.address.city,
+        //                 country:user.address.country,
+        //                 postalCode:user.address.postalCode,
+        //                 province:user.address.province,
+        //                 street:user.address.street,
+        //                 streetNumber:user.address.streetNumber,
+        //             }})
+        //         }else{
+        //             setData({...data,address:"Please provide a address"})
+        //         }
+
+        // }
+    }, [token])
 
     return (
         <>{!token ?
@@ -60,24 +92,24 @@ const Profile = () => {
                             <div className='w-full lg:w-6/12 h-4/6 border relative rounded-xl border-black p-4 flex flex-col items-start justify-center'>
                                 <div className='w-full'>
                                     <h3 className='font-bold'>Name:</h3>
-                                    {change ? <input className='w-8/12' onChange={(e) => setData({ ...data, name: e.target.value })} type="text" value={data.name} /> : <p>{data.name}</p>}
+                                    {change ? <input className='w-8/12' onChange={(e) => setData({ ...data, name: e.target.value })} type="text" value={user?.name} /> : <p>{user?.name}</p>}
                                 </div>
                                 <div className='w-full'>
-                                    <h3 className='font-bold'>Last Name:</h3>
-                                    {change ? <input className='w-8/12' onChange={(e) => setData({ ...data, lastName: e.target.value })} type="text" value={data.lastName} /> : <p>{data.lastName}</p>}
+                                    <h3 className='font-bold'>Surname:</h3>
+                                    {change ? <input className='w-8/12' onChange={(e) => setData({ ...data, surname: e.target.value })} type="text" value={user?.surname} /> : <p>{user?.surname}</p>}
                                 </div>
                                 <div className='w-full'>
                                     <h3 className='font-bold'>Email:</h3>
-                                    {change ? <input className='w-8/12' onChange={(e) => setData({ ...data, email: e.target.value })} type="text" value={data.email} /> : <p>{data.email}</p>}
+                                    {change ? <input className='w-8/12' onChange={(e) => setData({ ...data, email: e.target.value })} type="text" value={user?.email} /> : <p>{user?.email}</p>}
                                 </div>
                                 <div className='w-full'>
                                     <h3 className='font-bold'>Address</h3>
-                                    {change ? <input className='w-8/12' onChange={(e) => setData({ ...data, address: e.target.value })} type="text" value={data.address} /> : <p>{data.address}</p>}
+                                    {change ? <input className='w-8/12' onChange={(e) => setData({ ...data, address: e.target.value })} type="text" value={"hola"} /> : <p>{user?.address}</p>}
                                 </div>
                                 {change ?
                                     <div className='w-1/6 h-20 flex gap-2 absolute top-3 right-0'>
                                         <img onClick={() => { setChange(false); }} className='w-7 h-7 right-10 cursor-pointer' src={remove} alt="" />
-                                        <img onClick={() => { setChange(false); sendChanges() }} className='w-7 h-7 cursor-pointer' src={accept} alt="" />
+                                        <img onClick={() => { setChange(false); }} className='w-7 h-7 cursor-pointer' src={accept} alt="" />
                                     </div>
                                     :
                                     <img onClick={() => setChange(true)} className='w-7 h-7 absolute top-3 right-3 cursor-pointer' src={editIcon} alt="" />

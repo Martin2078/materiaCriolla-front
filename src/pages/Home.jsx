@@ -3,6 +3,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import '../Carousel.css';
 
 const MyCarousel = () => {
+
   return (
     <div className="w-full max-w-screen-xl mx-auto flex lg:px-5">
       <div className="w-3/4">

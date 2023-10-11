@@ -1,12 +1,13 @@
-import login from '../actions/singInAction';
+import login from '../actions/singInAction.js';
+import signOut from '../actions/signOutAction.js';
 import { createReducer } from '@reduxjs/toolkit';
 
 
 const initialState = {
-    token: null,
+    token: "",
     user: null,       // Representa al usuario que ha iniciado sesión 
     loading: false,   // Indica si se está realizando una operación de inicio de sesión.
-    error: null,      // Almacena información sobre cualquier error que ocurra durante el inicio de sesión.
+    error: null     // Almacena información sobre cualquier error que ocurra durante el inicio de sesión.
 };
 
 // Reducer para manejar las acciones de inicio de sesión
@@ -37,6 +38,9 @@ const authReducer = createReducer(initialState, (builder) => {
                 loading: false,
             }
             return nuevoEstado
+        })
+        .addCase(signOut.fulfilled, (state,action) => {
+            return initialState
         })
 
 })
