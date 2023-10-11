@@ -45,7 +45,7 @@ useEffect(()=>{
 
 
   return (
-    <div className='w-full h-screen'>
+    <div className='w-full'>
     <div className= 'w-full flex p-2 '>
          
         

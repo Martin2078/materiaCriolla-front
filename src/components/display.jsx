@@ -45,7 +45,7 @@ const display = ({ open, setOpen }) => {
                     <img className='w-6 h-6' src={HomeIcon} alt="" />
                     {open && "Home"}
                 </Link></li>
-                <li className={`${open && "min-[320px]:w-5/12"}`}><Link to={'/'} className='flex gap-4 justify-start'>
+                <li className={`${open && "min-[320px]:w-5/12"}`}><Link to={'/Products'} className='flex gap-4 justify-start'>
                     <img className='w-6 h-6' src={ProductsIcon} alt="" />
                     {open && "Products"}
                 </Link></li>
