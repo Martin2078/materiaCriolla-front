@@ -17,9 +17,9 @@ useEffect(()=>{
         console.log(userStorage);
         const data = { user: userStorage, token: tokenStorage }
         dispatch(login(data))
+      }
     }
-}
-},[token])
+  }, [token])
   return (
     <div className="w-full max-w-screen-xl mx-auto flex lg:px-5">
       <div className="w-3/4">
