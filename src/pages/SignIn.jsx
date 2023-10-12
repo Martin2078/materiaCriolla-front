@@ -16,18 +16,16 @@ function SignIn() {
     const passwordRef = useRef(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { success, error } = useToaster();
 
-    const { user, token } = useSelector(store => store.profile);
     async function navigateToHome() {
         await new Promise(resolve => setTimeout(resolve, 1000));
         navigate('/');
     }
-    // Función para manejar el inicio de sesión
+
     const handleSignIn = async (e) => {
-        e.preventDefault(); // Evita la recarga de la página
-        const email = emailRef.current.value; // Obtiene el valor del campo de correo
-        const password = passwordRef.current.value; // Obtiene el valor del campo de contraseña
+        e.preventDefault();
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
 
         if (!email && !password) {
             // Si el correo o la contraseña están vacíos, mostrar un toast
@@ -35,31 +33,20 @@ function SignIn() {
             return;
         }
 
-        const userData = { email, password }; // Datos del usuario a enviar al servidor
+        const userData = { email, password };
         dispatch(Login(userData))
             .then(res => {
                 if (res.payload.error) {
                     toast.error(res.payload.error);
                 }
                 else {
-                    toast.success('Inicio de sesión exitoso.');
+                    toast.success('Inicio de sesiÃ³n exitoso.');
                 }
             })
+            .catch((error) => {
+                console.log(error);
+            });
     };
-    useEffect(() => {
-        if (!token || !token.length) {
-            if (localStorage.length > 0) {
-                const tokenStorage = localStorage.getItem('token')
-                const userStorage = JSON.parse(localStorage.getItem('user'))
-                console.log(tokenStorage);
-                console.log(userStorage);
-                const data = { user: userStorage, token: tokenStorage }
-                dispatch(Login(data))
-            }
-        } else {
-            navigateToHome()
-        }
-    }, [token])
 
     return (
 
