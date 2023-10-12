@@ -1,13 +1,21 @@
-.register-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  
-  .form-input {
-    border: 1px solid #d1d5db;
-    padding: 0.5rem;
-    width: 100%;
-    border-radius: 0.25rem;
-  }
+/* Estilos para el toast de éxito personalizado */
+.custom-toast-success { /* Fija la posición del toast en la pantalla */
+ /* Centra el toast exactamente en el medio */
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  transform: perspective(-20%, 50%);
+  padding: 2px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+  text-align: center;
+  font-size: 30px;
+  z-index: 9999; /* Asegura que esté en la parte superior de otros elementos */
+}
+
+.custom-toast-success img {
+  display: block; /* Hace que la imagen sea un bloque, para centrarla correctamente */
+  margin: 0 auto; /* Centra horizontalmente la imagen */
+  margin-bottom: 50px; /* Espacio entre la imagen y el texto */
+}
+
+

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import register from '../redux/actions/registerAction';
-
+import '../Register.css'
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -44,7 +46,37 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(register(formData));
+    if (formData.name && formData.surname && formData.email && formData.password && formData.birthdate) {
+      dispatch(register(formData));
+      toast.success(
+        <div >
+          <img src="https://media.tenor.com/0F1IPiIH2IAAAAAd/chimavara-capivara.gif" alt="Éxito" />
+          Registro exitoso
+        </div>,
+        {
+          position: 'top-center', 
+          autoClose: 90000000,
+          className: 'custom-toast-success',
+          icon: null,
+        }
+      );
+    } else {
+      if (!formData.name) {
+        toast.error('Por favor ingresa tu nombre');
+      }
+      if (!formData.surname) {
+        toast.error('Por favor ingresa tu apellido');
+      }
+      if (!formData.email) {
+        toast.error('Por favor ingresa tu correo electrónico');
+      }
+      if (!formData.password) {
+        toast.error('Por favor ingresa tu contraseña');
+      }
+      if (!formData.birthdate) {
+        toast.error('Por favor ingresa tu fecha de nacimiento');
+      }
+    }
   };
 
   return (
@@ -102,7 +134,7 @@ const Register = () => {
           </div>
           <div className="mb-4 flex flex-col md:flex-row">
             <div className="md:mr-4">
-              <label htmlFor="birthdate" className="block text-gray-700 font-bold mb-0">Birthdate (18 or older)</label>
+              <label htmlFor="birthdate" className="block text-gray-700 font-bold mb-0">Birthdate</label>
               <input
                 type="date"
                 id="birthdate"
@@ -124,6 +156,7 @@ const Register = () => {
               />
             </div>
           </div>
+          {/* Más campos de dirección */}
           <div className="mb-4 flex flex-col md:flex-row">
             <div className="md:mr-4">
               <label htmlFor="province" className="block text-gray-700 font-bold mb-0">Province</label>
@@ -184,20 +217,20 @@ const Register = () => {
                 value={formData.address.postalCode}
               />
             </div>
-            
           </div>
-          <div className=' flex flex-col pb-2 md:flex-row'>
-              <button
-                type="submit"
-                className=" text-white font-bold pb-4 px-20 rounded mt-4 md:mt-0 w-full"
-                style={{ backgroundImage: 'url("public/img/1.png")', backgroundSize: 'cover' }}
-              >
-                Register
-              </button>
-            </div>
-          {registrationError && (
+          {/* Botón de registro */}
+          <div className='flex flex-col pb-2 md:flex-row'>
+            <button
+              type="submit"
+              className="text-white text-2xl font-bold py-2 px-20 rounded mt-4 md:mt-0 w-full"
+              style={{ backgroundImage: 'url("public/images/madera.png")', backgroundSize: 'cover' }}
+            >
+              Register
+            </button>
+          </div>
+          {/* {registrationError && (
             <div className="text-red-500">{registrationError.message}</div>
-          )}
+          )} */}
         </form>
       </div>
       <div className="w-full md:w-1/2 shadow-md p-6 rounded bg-white px-8 pb-4 m-4">
@@ -207,6 +240,19 @@ const Register = () => {
           className="w-full h-full object-cover"
         />
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={true}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        toastClassName="toast-without-icon"
+        icon={false}
+      />
     </div>
   );
 };
