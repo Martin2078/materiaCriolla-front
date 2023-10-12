@@ -1,89 +1,96 @@
-// Importamos los módulos y recursos necesarios
 import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux'; // Para usar Redux
-import Login from '../redux/actions/singInAction'; // Asegúrate de que la ruta sea correcta
+import { useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Login from '../redux/actions/singInAction';
+import imagenmate from '../../public/img/1.png';
+import { useNavigate } from 'react-router-dom';
 
-import imagenmate from '../assets/imagen-mate.jpeg'; // Imagen de fondo
-import { useNavigate } from 'react-router-dom'; // Para la navegación en React Router
-
-// Definimos el componente SignIn
 function SignIn() {
-    const emailRef = useRef(null); // Referencia al campo de correo electrónico
-    const passwordRef = useRef(null); // Referencia al campo de contraseña
-    const dispatch = useDispatch(); // Dispatch de Redux para disparar acciones
-    const navigate = useNavigate(); // Función de navegación de React Router
+ const emailRef = useRef(null);
+ const passwordRef = useRef(null);
+ const dispatch = useDispatch();
+ const navigate = useNavigate();
 
-    // Función para manejar el inicio de sesión
-    const handleSignIn = async (e) => {
-        e.preventDefault(); // Evita la recarga de la página
-        const email = emailRef.current.value; // Obtiene el valor del campo de correo
-        const password = passwordRef.current.value; // Obtiene el valor del campo de contraseña
+ async function navigateToHome() {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  navigate('/');
+ }
 
-        if (!email || !password) {
-            // Si el correo o la contraseña están vacíos, no hacemos nada
-            return;
-        }
+ const handleSignIn = async (e) => {
+  e.preventDefault();
+  const email = emailRef.current.value;
+  const password = passwordRef.current.value;
 
-        const userData = { email, password }; // Datos del usuario a enviar al servidor
-        dispatch(Login(userData))
-            .then(res =>{
-                console.log(res);
-                navigate("/")
-            }
-                )
-            .catch(error =>
-                console.log(error))
-    };
+  if (!email || !password) {
+   return;
+  }
 
-    return (
-        <div className="container w-full mx-auto md:py-24 px-6 h-screen">
-            <div className="max-w-screen-xl mx-auto flex items-center justify-center">
+  const userData = { email, password };
+  dispatch(Login(userData))
+   .then(res => {
+    if (res.payload.error) {
+     toast.error(res.payload.error);
+    }
+    else {
+     toast.success('Inicio de sesión exitoso.');
+    }
+   })
+   .catch((error) => {
+    console.log(error);
+   });
+ };
 
-                <div className="w-1/2 pl-4">
-                    <div className="text-center font-semibold text-black">
-                        Welcome Back!
-                    </div>
-                    <div className="text-center font-base text-black">
-                        Let's drink mate
-                    </div>
-                    <form className="mt-8" onSubmit={handleSignIn}>
-                        <div className="mx-auto max-w-lg">
-                            <div className="py-1">
-                                <span className="px-1 text-sm text-gray-600">Email</span>
-                                <input
-                                    ref={emailRef}
-                                    placeholder=""
-                                    type="email"
-                                    className="text-md block px-3 py-2 rounded-lg w-full bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
-                                />
-                            </div>
-                            <div className="py-1">
-                                <span className="px-1 text-sm text-gray-600">Password</span>
-                                <input
-                                    ref={passwordRef}
-                                    placeholder=""
-                                    type="password"
-                                    className="text-md block px-3 py-2 rounded-lg w-full bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
-                                />
-                            </div>
-
-                            <button
-                                type="submit"
-                                className="bg-blue-500 hover:bg-blue-700  text-white font-bold py-2 px-4 rounded w-full"
-                                style={{ backgroundImage: 'url("public/img/1.png")', backgroundSize: 'cover' }}
-                            >
-                                Sing In!
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <div className="w-1/2 pr-4 p-8 shadow-md rounded bg-white px-8 pb-4 mb-4">
-                    <img src={imagenmate} alt="Login" className="w-full h-auto" />
-                </div>
-
-            </div >
-        </div >
-    );
+ return (
+  <div className="login-container w-full h-screen flex flex-col md:flex-row">
+   <div className="w-full md:w-2/3 flex flex-col items-center justify-center p-8">
+    <h1 className="text-3xl font-bold mb-1">Login</h1>
+    <form className="bg-white shadow-2xl rounded p-4 md:p-24 mb-4 " onSubmit={handleSignIn}>
+     <div className="md:mr-4">
+      <label htmlFor="name" className="block text-gray-700 font-bold mt-2">Email</label>
+      <input
+       ref={emailRef}
+       type="email"
+       className="form-input px-4 py-2 border rounded mt-2 mb-10"
+      />
+     </div>
+     <div className="md:mr-4">
+      <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Password</label>
+      <input
+       ref={passwordRef}
+       type="password"
+       className="form-input px-4 py-2 border rounded"
+      />
+     </div>
+     <div className='flex flex-col pt-10 md:flex-row'>
+      <button
+       type="submit"
+       className="text-white text-2xl font-bold py-2 px-4 rounded mt-4 md:mt-0 w-full"
+       style={{ backgroundImage: 'url("public/images/madera.png")', backgroundSize: 'cover' }}
+      >
+       Sign In!
+      </button>
+     </div>
+    </form>
+   </div>
+   <div className="w-full md:w-1/2 shadow-md p-6 rounded bg-white px-8 pb-4 m-4">
+    <img src={imagenmate} alt="Login" className="w-full h-full object-cover hidden md:block" />
+   </div>
+   <ToastContainer
+    position="top-center"
+    autoClose={5000}
+    hideProgressBar={true}
+    newestOnTop={true}
+    closeOnClick
+    rtl={true}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+    toastClassName="toast-without-icon"
+    icon={false}
+   />
+  </div>
+ );
 }
 
 export default SignIn;

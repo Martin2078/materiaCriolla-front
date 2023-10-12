@@ -83,7 +83,7 @@ const Register = () => {
     <div className="register-container w-full h-screen flex flex-col md:flex-row">
       <div className="w-full md:w-2/3 flex flex-col items-center justify-center p-8">
         <h1 className="text-3xl font-bold mb-1">Join Us</h1>
-        <form className="bg-white shadow-md rounded px-8 mb-4" onSubmit={handleSubmit}>
+        <form className="bg-white shadow-2xl rounded px-8 mb-4" onSubmit={handleSubmit}>
           <div className="mb-4 flex flex-col md:flex-row">
             <div className="md:mr-4">
               <label htmlFor="name" className="block text-gray-700 font-bold mb-0">Name</label>
