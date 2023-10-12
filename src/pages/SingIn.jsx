@@ -1,44 +1,47 @@
-// Importamos los módulos y recursos necesarios
 import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux'; // Para usar Redux
-import Login from '../redux/actions/singInAction'; // Asegúrate de que la ruta sea correcta
+import { useDispatch } from 'react-redux';
+import Login from '../redux/actions/singInAction';
+import imagenmate from '../assets/imagen-mate.jpeg';
+import { useNavigate } from 'react-router-dom';
+import { Toaster, useToaster, toast } from 'react-hot-toast'; // Importa useToaster
 
-import imagenmate from '../assets/imagen-mate.jpeg'; // Imagen de fondo
-import { useNavigate } from 'react-router-dom'; // Para la navegación en React Router
+const toastOptions = {
+    position: 'top-center', // Centrado en la parte superior
+    reverseOrder: false,
+};
 
-// Definimos el componente SignIn
 function SignIn() {
-    const emailRef = useRef(null); // Referencia al campo de correo electrónico
-    const passwordRef = useRef(null); // Referencia al campo de contraseña
-    const dispatch = useDispatch(); // Dispatch de Redux para disparar acciones
-    const navigate = useNavigate(); // Función de navegación de React Router
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { success, error } = useToaster(); // Utiliza useToaster para mostrar notificaciones
 
-    // Función para manejar el inicio de sesión
     const handleSignIn = async (e) => {
-        e.preventDefault(); // Evita la recarga de la página
-        const email = emailRef.current.value; // Obtiene el valor del campo de correo
-        const password = passwordRef.current.value; // Obtiene el valor del campo de contraseña
+        e.preventDefault();
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
 
         if (!email || !password) {
-            // Si el correo o la contraseña están vacíos, no hacemos nada
             return;
         }
 
-        const userData = { email, password }; // Datos del usuario a enviar al servidor
+        const userData = { email, password };
         dispatch(Login(userData))
-            .then(res =>{
+            .then(res => {
                 console.log(res);
-                navigate("/")
-            }
-                )
-            .catch(error =>
-                console.log(error))
+                toast.success('Inicio de sesión exitoso.'); // Mensaje de éxito
+                //navigate('/');
+            })
+            .catch(error => {
+                console.log(error);
+                toast.error('Error en el inicio de sesión. Verifica tus credenciales.'); // Mensaje de error
+            });
     };
 
     return (
         <div className="container w-full mx-auto md:py-24 px-6 h-screen">
             <div className="max-w-screen-xl mx-auto flex items-center justify-center">
-
                 <div className="w-1/2 pl-4">
                     <div className="text-center font-semibold text-black">
                         Welcome Back!
@@ -69,20 +72,19 @@ function SignIn() {
 
                             <button
                                 type="submit"
-                                className="bg-blue-500 hover:bg-blue-700  text-white font-bold py-2 px-4 rounded w-full"
-                                style={{ backgroundImage: 'url("public/img/1.png")', backgroundSize: 'cover' }}
+                                className="bg-blue-500 hover.bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
                             >
-                                Sing In!
+                                Sign In!
                             </button>
                         </div>
                     </form>
                 </div>
-                <div className="w-1/2 pr-4 p-8 shadow-md rounded bg-white px-8 pb-4 mb-4">
+                <div className="hidden md:block w-1/2 pr-4 p-8 shadow-md rounded bg-white px-8 pb-4 mb-4">
                     <img src={imagenmate} alt="Login" className="w-full h-auto" />
                 </div>
-
-            </div >
-        </div >
+            </div>
+            <Toaster position={toastOptions.position} reverseOrder={toastOptions.reverseOrder} />
+        </div>
     );
 }
 
