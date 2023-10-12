@@ -1,9 +1,25 @@
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import '../Carousel.css';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import login from '../redux/actions/singInAction';
 
 const MyCarousel = () => {
-
+  const dispatch=useDispatch()
+  const {user,token}=useSelector(store=>store.profile)
+useEffect(()=>{
+  if (!token.length > 0) {
+    if (localStorage.length > 0) {
+        const tokenStorage = localStorage.getItem('token')
+        const userStorage = JSON.parse(localStorage.getItem('user'))
+        console.log(tokenStorage);
+        console.log(userStorage);
+        const data = { user: userStorage, token: tokenStorage }
+        dispatch(login(data))
+    }
+}
+},[token])
   return (
     <div className="w-full max-w-screen-xl mx-auto flex lg:px-5">
       <div className="w-3/4">

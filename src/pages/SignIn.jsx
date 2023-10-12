@@ -1,17 +1,17 @@
 // Importamos los módulos y recursos necesarios
 import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux'; // Para usar Redux
+import { useDispatch, useSelector } from 'react-redux'; // Para usar Redux
 import Login from '../redux/actions/singInAction'; // Asegúrate de que la ruta sea correcta
-
 import imagenmate from '../assets/imagen-mate.jpeg'; // Imagen de fondo
 import { useNavigate } from 'react-router-dom'; // Para la navegación en React Router
-
+import { useEffect } from 'react';
 // Definimos el componente SignIn
 function SignIn() {
     const emailRef = useRef(null); // Referencia al campo de correo electrónico
     const passwordRef = useRef(null); // Referencia al campo de contraseña
     const dispatch = useDispatch(); // Dispatch de Redux para disparar acciones
     const navigate = useNavigate(); // Función de navegación de React Router
+    const {user,token}=useSelector(store=>store.profile)
 
     // Función para manejar el inicio de sesión
     const handleSignIn = async (e) => {
@@ -34,6 +34,20 @@ function SignIn() {
             .catch(error =>
                 console.log(error))
     };
+useEffect(()=>{
+  if (!token.length > 0) {
+    if (localStorage.length > 0) {
+        const tokenStorage = localStorage.getItem('token')
+        const userStorage = JSON.parse(localStorage.getItem('user'))
+        console.log(tokenStorage);
+        console.log(userStorage);
+        const data = { user: userStorage, token: tokenStorage }
+        dispatch(Login(data))
+    }
+}else{
+    navigate('/')
+}
+},[token])
 
     return (
         <div className="container w-full mx-auto md:py-24 px-6 h-screen">
