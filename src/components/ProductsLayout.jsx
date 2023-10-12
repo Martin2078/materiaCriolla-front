@@ -1,37 +1,54 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,  } from 'react'
+import { Link } from "react-router-dom";
+import { Dispatch } from 'react';
+import { useDispatch } from 'react-redux';
+import {agregarObjeto}  from "../redux/actions/productsAction"
+import { useSelector } from "react-redux/es/hooks/useSelector";
+
 
 const ProductsLayout = (props) => {
 const {productos, categoryChecked, setProductos, productosFiltrados, searchValue} =props
-
+const  productoStore  = useSelector((store) => store.productos)
+console.log("aca: " , productoStore)
 useEffect(()=>{
   },[])
+   
+  const dispatch = useDispatch() 
+
+
+  const agregarProducto=(id)=>{
+    console.log("entra a funcion")
+const producto = productos.filter((elemento)=> elemento._id === id)
+console.log(producto)
+dispatch(agregarObjeto(producto))
+
+
+}
   
-  
+
   
        const mapear = () =>{
         console.log(searchValue)
         let data = []
-        searchValue.length > 0 ? data = searchValue : data =productosFiltrados
+        productosFiltrados.length > 0 ? data = productosFiltrados : data =productos
 
-        return productosFiltrados?.map((producto) => (
+        return data?.map((producto) => (
             <>
               
-  <div className="w-1/4 mt-10 mx-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 relative">
+  <div className=" w-20 h-32    sm:w-28 sm:h-44 mt-10  flex flex-col justify-center items-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 relative">
       
-          <img className="rounded-full absolute right-10 bottom-48 h-1/2 object-cover border-slate-700 border-2 w-1/2" src={producto.product_photo} alt={producto.name} />
+          <img className="rounded-full translate-y-3 w-12 h-12 sm:h-16 sm:w-16 object-cover border-slate-700 border-2  sm:-translate-y-3" src={producto.product_photo} alt={producto.name} />
       
-      <div className="p-5 mt-28">
+      <div className="p-5  ">
           
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> {producto.name} </h5>
+              <h5 className="mb-2 text-sm sm:text-xl font-bold tracking-tight text-gray-900 dark:text-white"> {producto.name} </h5>
           
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{producto.description} </p>
-          <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              Agregar al carrito
-               <svg className="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-              </svg>
-          </a>
+          <p className=" font-normal text-xs sm:text-sm text-gray-700 dark:text-gray-400">{producto.description} </p>
+          <button href="#" onClick={(e)=>agregarProducto(producto._id)} id={producto._id} className="w-7 h-7 translate-x-14 -translate-y-32  sm:-translate-y-44  sm:translate-x-20 inline-flex items-center  text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              
+               <img className='w-5'  src="public/img/icons8-agregar-a-carrito-de-compras-26.png" alt="" />
+          </button>
       </div>
   </div>
   
@@ -45,8 +62,8 @@ useEffect(()=>{
 
 
   return (
-    <div className='w-full'>
-    <div className= 'w-full flex p-2 '>
+  
+    <div className= 'w-full flex justify-around  sm:pt-3 '>
          
         
 
@@ -55,7 +72,7 @@ mapear()
 
 }
    
-</div>
+
 </div>
 
   )
