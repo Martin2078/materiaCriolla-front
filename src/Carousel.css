@@ -1,0 +1,16 @@
+.carousel {
+  max-width: 50rem;
+  max-height: 15rem; 
+  margin: 0 auto; 
+}
+
+.carousel .carousel-item {
+  max-width: 100%; 
+  height: auto; 
+}
+
+.carousel .carousel-item img {
+  max-width: 100%; 
+  height: auto; 
+}
+

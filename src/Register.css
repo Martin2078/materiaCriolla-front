@@ -1,0 +1,13 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .form-input {
+    border: 1px solid #d1d5db;
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: 0.25rem;
+  }
