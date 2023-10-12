@@ -5,14 +5,14 @@ import Login from '../redux/actions/singInAction'; // Asegúrate de que la ruta 
 import imagenmate from '../assets/imagen-mate.jpeg'; // Imagen de fondo
 import { useNavigate } from 'react-router-dom'; // Para la navegación en React Router
 import { useEffect } from 'react';
-import { Toaster,toast } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 // Definimos el componente SignIn
 function SignIn() {
     const emailRef = useRef(null); // Referencia al campo de correo electrónico
     const passwordRef = useRef(null); // Referencia al campo de contraseña
     const dispatch = useDispatch(); // Dispatch de Redux para disparar acciones
     const navigate = useNavigate(); // Función de navegación de React Router
-    const {user,token}=useSelector(store=>store.profile)
+    const { user, token } = useSelector(store => store.profile)
 
     async function navigateToHome() {
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -31,7 +31,7 @@ function SignIn() {
 
         const userData = { email, password }; // Datos del usuario a enviar al servidor
         dispatch(Login(userData))
-            .then(res =>{
+            .then(res => {
                 if (res.payload.error) {
                     toast.error(res.payload.error);
                 }
@@ -40,24 +40,24 @@ function SignIn() {
                 }
             })
     };
-useEffect(()=>{
-  if (!token || !token.length) {
-    if (localStorage.length > 0) {
-        const tokenStorage = localStorage.getItem('token')
-        const userStorage = JSON.parse(localStorage.getItem('user'))
-        console.log(tokenStorage);
-        console.log(userStorage);
-        const data = { user: userStorage, token: tokenStorage }
-        dispatch(Login(data))
-    }
-}else{
-    navigateToHome()
-}
-},[token])
+    useEffect(() => {
+        if (!token || !token.length) {
+            if (localStorage.length > 0) {
+                const tokenStorage = localStorage.getItem('token')
+                const userStorage = JSON.parse(localStorage.getItem('user'))
+                console.log(tokenStorage);
+                console.log(userStorage);
+                const data = { user: userStorage, token: tokenStorage }
+                dispatch(Login(data))
+            }
+        } else {
+            navigateToHome()
+        }
+    }, [token])
 
     return (
         <div className="container w-full mx-auto md:py-24 px-6 h-screen">
-            <Toaster position='top-center'/>
+            <Toaster position='top-center' />
             <div className="max-w-screen-xl mx-auto flex items-center justify-center">
 
                 <div className="w-1/2 pl-4">
