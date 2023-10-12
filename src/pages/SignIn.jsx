@@ -5,6 +5,7 @@ import Login from '../redux/actions/singInAction'; // Asegúrate de que la ruta 
 import imagenmate from '../assets/imagen-mate.jpeg'; // Imagen de fondo
 import { useNavigate } from 'react-router-dom'; // Para la navegación en React Router
 import { useEffect } from 'react';
+import { Toaster,toast } from 'react-hot-toast';
 // Definimos el componente SignIn
 function SignIn() {
     const emailRef = useRef(null); // Referencia al campo de correo electrónico
@@ -13,6 +14,10 @@ function SignIn() {
     const navigate = useNavigate(); // Función de navegación de React Router
     const {user,token}=useSelector(store=>store.profile)
 
+    async function navigateToHome() {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        navigate('/');
+    }
     // Función para manejar el inicio de sesión
     const handleSignIn = async (e) => {
         e.preventDefault(); // Evita la recarga de la página
@@ -27,10 +32,13 @@ function SignIn() {
         const userData = { email, password }; // Datos del usuario a enviar al servidor
         dispatch(Login(userData))
             .then(res =>{
-            }
-                )
-            .catch(error =>
-                console.log(error))
+                if (res.payload.error) {
+                    toast.error(res.payload.error);
+                }
+                else {
+                    toast.success('Inicio de sesión exitoso.');
+                }
+            })
     };
 useEffect(()=>{
   if (!token || !token.length) {
@@ -43,12 +51,13 @@ useEffect(()=>{
         dispatch(Login(data))
     }
 }else{
-    navigate('/')
+    navigateToHome()
 }
 },[token])
 
     return (
         <div className="container w-full mx-auto md:py-24 px-6 h-screen">
+            <Toaster position='top-center'/>
             <div className="max-w-screen-xl mx-auto flex items-center justify-center">
 
                 <div className="w-1/2 pl-4">
