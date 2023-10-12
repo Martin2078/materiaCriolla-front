@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import register from '../redux/actions/registerAction';
+import { useEffect } from 'react';
+import login from '../redux/actions/singInAction';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const Register = () => {
   const dispatch = useDispatch();
   const registrationError = useSelector((state) => state.register.error);
-
+  const token=useSelector(store=>store.profile.token)
+  const navigate=useNavigate()
   const [formData, setFormData] = useState({
     name: '',
     surname: '',
@@ -46,6 +51,20 @@ const Register = () => {
     e.preventDefault();
     dispatch(register(formData));
   };
+  useEffect(()=>{
+    if (!token.length > 0) {
+      if (localStorage.length > 0) {
+          const tokenStorage = localStorage.getItem('token')
+          const userStorage = JSON.parse(localStorage.getItem('user'))
+          console.log(tokenStorage);
+          console.log(userStorage);
+          const data = { user: userStorage, token: tokenStorage }
+          dispatch(login(data))
+      }
+  }else{
+      navigate('/')
+  }
+  },[token])
 
   return (
     <div className="register-container w-full h-screen flex flex-col md:flex-row">
