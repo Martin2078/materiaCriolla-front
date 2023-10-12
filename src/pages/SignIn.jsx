@@ -28,7 +28,6 @@ function SignIn() {
         dispatch(Login(userData))
             .then(res =>{
                 console.log(res);
-                navigate("/")
             }
                 )
             .catch(error =>
