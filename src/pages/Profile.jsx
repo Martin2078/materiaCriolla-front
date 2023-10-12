@@ -28,27 +28,31 @@ const Profile = () => {
         setData({ ...data, photo: e.target.files[0] })
     }
     async function changeData() {
-        const data3={
-            city:data.address.city,
-            postalCode:data.address.postalCode,
-            street:data.address.street,
-            province:data.address.province,
-            country:data.address.country,
-            streetNumber:data.address.streetNumber,
+        console.log(data);
+        let data3={
+            city:data.city||data.address.city,
+            country:data.country||data.address.country,
+            postalCode:data.postalCode||data.address.postalCode,
+            province:data.province||data.address.province,
+            street:data.street||data.address.street,
+            streetNumber:data.streetNumber||data.address.streetNumber,
             name:data.name,
             surname:data.surname,
             birthdate:data.birthdate,
             email:data.email
         }
-        dispatch(userChangeAction(data3))
-        .then(res=>{
-            if (res.payload.error) {
-            res.payload.error.message.forEach((element) => toast.error(element))
-            setRenderizar(true)
-        }else{
-            toast.success("Information updated!")
-        }
-        })
+        console.log(data3);
+            dispatch(userChangeAction(data3))
+            .then(res=>{
+                console.log(res.payload);
+                if (res.payload.error) {
+                res.payload.error.message.forEach((element) => toast.error(element))
+                setRenderizar(true)
+            }else{
+                toast.success("Information updated!")
+                setRenderizar(true)
+            }
+            })
     }
 
     useEffect(() => {
@@ -61,7 +65,7 @@ const Profile = () => {
                 dispatch(login(data2))
             }
         }  else{       
-            setData({...user,birthdate:user.birthdate.slice(0,10).replaceAll("-","/")})
+            setData({...user,...user.address,birthdate:user.birthdate.slice(0,10).replaceAll("-","/")})
             } 
         
 
@@ -118,31 +122,31 @@ const Profile = () => {
                                         <div className='flex w-full'>
                                             <div className='w-1/2'>
                                                 <h3 className='font-bold text-base'>Country</h3>
-                                                {change ? <input className='w-full' onChange={(e) => setData({ ...data, address:{country:e.target.value} })} type="text" defaultValue={data.address?.country} /> : <p>{data.address?.country}</p>}
+                                                {change ? <input className='w-full' onChange={(e) => setData({ ...data,country:e.target.value })} type="text" defaultValue={data.address?.country} /> : <p>{data.address?.country}</p>}
                                             </div>
                                             <div className='w-1/2'>
                                                 <h3 className='font-bold'>Province</h3>
-                                                {change ? <input className='w-full' onChange={(e) => setData({ ...data, address:{province:e.target.value} })} type="text" defaultValue={data.address?.province} /> : <p>{data.address?.province}</p>}
+                                                {change ? <input className='w-full' onChange={(e) => setData({ ...data, province:e.target.value })} type="text" defaultValue={data.address?.province} /> : <p>{data.address?.province}</p>}
                                             </div>
                                         </div>
                                         <div className='flex w-full flex-col'>
                                             <div className='w-full'>
                                                 <h3 className='font-bold'>City</h3>
-                                                {change ? <input className='w-full' onChange={(e) => setData({ ...data, address:{city:e.target.value} })} type="text" defaultValue={data.address?.city} /> : <p>{data.address?.city}</p>}
+                                                {change ? <input className='w-full' onChange={(e) => setData({ ...data,city:e.target.value})} type="text" defaultValue={data.address?.city} /> : <p>{data.address?.city}</p>}
                                             </div>
                                             <div className='w-full'>
                                                 <h3 className='font-bold'>Street</h3>
-                                                {change ? <input className='w-full' onChange={(e) => setData({ ...data, address:{street:e.target.value} })} type="text" defaultValue={data.address?.street} /> : <p>{data.address?.street}</p>}
+                                                {change ? <input className='w-full' onChange={(e) => setData({ ...data,street:e.target.value })} type="text" defaultValue={data.address?.street} /> : <p>{data.address?.street}</p>}
                                             </div>
                                         </div>
                                         <div className='flex w-full'>
                                             <div className='w-1/2'>
                                                 <h3 className='font-bold'>SteetNumber</h3>
-                                                {change ? <input className='w-full' onChange={(e) => setData({ ...data, address:{streetNumber:e.target.value} })} type="text" defaultValue={data.address?.streetNumber} /> : <p>{data.address?.streetNumber}</p>}
+                                                {change ? <input className='w-full' onChange={(e) => setData({ ...data,streetNumber:e.target.value })} type="text" defaultValue={data.address?.streetNumber} /> : <p>{data.address?.streetNumber}</p>}
                                             </div>
                                             <div className='w-1/2'>
                                                 <h3 className='font-bold'>Postal Code</h3>
-                                                {change ? <input className='w-full' onChange={(e) => setData({ ...data, address:{postalCode:e.target.value} })} type="text" defaultValue={data.address?.postalCode} /> : <p>{data.address?.postalCode}</p>}
+                                                {change ? <input className='w-full' onChange={(e) => setData({ ...data,postalCode:e.target.value})} type="text" defaultValue={data.address?.postalCode} /> : <p>{data.address?.postalCode}</p>}
                                             </div>
                                         </div>
                                 </div>
@@ -152,7 +156,7 @@ const Profile = () => {
                                         <img onClick={() => { changeData();setChange(false)}} className='w-7 h-7 cursor-pointer' src={accept} alt="" />
                                     </div>
                                     :
-                                    <img onClick={() => setChange(true)} className='w-7 h-7 absolute top-3 right-3 cursor-pointer' src={editIcon} alt="" />
+                                    <img onClick={() => {setChange(true);setData({...user,birthdate:user.birthdate.slice(0,10).replaceAll("-","/")})}} className='w-7 h-7 absolute top-3 right-3 cursor-pointer' src={editIcon} alt="" />
                                 }
                             </div>
                         </div>
