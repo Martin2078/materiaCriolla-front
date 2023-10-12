@@ -9,7 +9,7 @@ const MyCarousel = () => {
   const dispatch=useDispatch()
   const {user,token}=useSelector(store=>store.profile)
 useEffect(()=>{
-  if (!token.length > 0) {
+  if (!token || !token.length) {
     if (localStorage.length > 0) {
         const tokenStorage = localStorage.getItem('token')
         const userStorage = JSON.parse(localStorage.getItem('user'))
