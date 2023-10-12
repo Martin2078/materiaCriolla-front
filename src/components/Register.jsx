@@ -52,7 +52,7 @@ const Register = () => {
     dispatch(register(formData));
   };
   useEffect(()=>{
-    if (!token.length > 0) {
+    if (!token || !token.length) {
       if (localStorage.length > 0) {
           const tokenStorage = localStorage.getItem('token')
           const userStorage = JSON.parse(localStorage.getItem('user'))

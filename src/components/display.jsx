@@ -35,8 +35,8 @@ const display = ({ open, setOpen }) => {
                 </Link>
                 {token&&open &&
                     <div>
-                        <h1 className='font-bold text-xl'>{user.name||"not finded"}</h1>
-                        <p className='text-xs'>{user.email}</p>
+                        <h1 className='font-bold text-xl'>{user?.name||"not finded"}</h1>
+                        <p className='text-xs'>{user?.email}</p>
                     </div>}
             </div>
 
@@ -73,7 +73,7 @@ const display = ({ open, setOpen }) => {
                 </>
                     :<>
                     <li className={`${open&&"min-[320px]:w-5/12"} lg:hidden`}><Link to={'/Me'} className='flex gap-4 justify-start'>
-                        <img className='w-6 h-6 rounded-full' src={token?user.photo:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} alt="" />
+                        <img className='w-6 h-6 rounded-full' src={token?user?.photo:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} alt="" />
                         {open && "Profile"}
                     </Link></li>
                     <li className={`${open&&"min-[320px]:w-5/12"}`}>

@@ -18,22 +18,6 @@ const [filterProMax, setFilterProMax] = useState([])
 const search = useRef();
 const dispatch=useDispatch()
   const {user,token}=useSelector(store=>store.profile)
-useEffect(()=>{
-  if (!token.length > 0) {
-    if (localStorage.length > 0) {
-        const tokenStorage = localStorage.getItem('token')
-        const userStorage = JSON.parse(localStorage.getItem('user'))
-        console.log(tokenStorage);
-        console.log(userStorage);
-        const data = { user: userStorage, token: tokenStorage }
-        dispatch(login(data))
-    }
-    getCategory()
-    getProducts()
-}
-},[token])
-
-
 
   const  getProducts = async() =>{
     await axios("http://localhost:8080/products")
@@ -119,7 +103,20 @@ const filter =(data)=>{
 
 
 
-
+useEffect(()=>{
+  if (!token || !token.length) {
+    if (localStorage.length > 0) {
+        const tokenStorage = localStorage.getItem('token')
+        const userStorage = JSON.parse(localStorage.getItem('user'))
+        console.log(tokenStorage);
+        console.log(userStorage);
+        const data = { user: userStorage, token: tokenStorage }
+        dispatch(login(data))
+    }
+    getCategory()
+    getProducts()
+}
+},[token,productos])
 
 
 

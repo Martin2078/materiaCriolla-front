@@ -35,7 +35,7 @@ function SignIn() {
                 console.log(error))
     };
 useEffect(()=>{
-  if (!token.length > 0) {
+  if (!token || !token.length) {
     if (localStorage.length > 0) {
         const tokenStorage = localStorage.getItem('token')
         const userStorage = JSON.parse(localStorage.getItem('user'))

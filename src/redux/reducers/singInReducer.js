@@ -1,6 +1,6 @@
 import login from '../actions/singInAction.js';
 import signOut from '../actions/signOutAction.js';
-import userAddressAction from '../actions/userAddressAction.js';
+import userChangeAction from '../actions/userChangeAction.js';
 import { createReducer } from '@reduxjs/toolkit';
 
 
@@ -15,7 +15,10 @@ const initialState = {
 
 const authReducer = createReducer(initialState, (builder) => {
     builder
-        .addCase(userAddressAction.fulfilled, (state, action) => {
+        .addCase(userChangeAction.fulfilled, (state, action) => {
+            if (action.payload.error) {
+                return state
+            }
             let nuevoEstado = {
                 ...state,
                 user: action.payload.user,
@@ -24,7 +27,7 @@ const authReducer = createReducer(initialState, (builder) => {
             }
             return nuevoEstado
         })
-        .addCase(userAddressAction.rejected, (state, action) => {
+        .addCase(userChangeAction.rejected, (state, action) => {
             let nuevoEstado = {
                 ...state,
                 error:action.payload.error,
