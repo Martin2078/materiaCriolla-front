@@ -14,7 +14,7 @@ const login = createAsyncThunk('login', async (data) => {
         return {token:res.data.response.token,
         user:res.data.response.user}
     } catch (error) {
-        return {error:error.response.data.message}
+        return {error:error.response.data.error}
     }
 })
 export default login
