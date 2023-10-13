@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import ProductsLayout from '../components/ProductsLayout'
 import CategoryLayout from '../components/CategoryLayout'
 import { useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import login from '../redux/actions/singInAction'
 
 const Products = () => {
 
@@ -40,6 +42,8 @@ useEffect(()=>{
       
     }
   }
+const dispatch=useDispatch()
+  const {user,token}=useSelector(store=>store.profile)
 
   const  getProducts = async() =>{
     await axios("http://localhost:8080/products")
@@ -138,7 +142,20 @@ const filter =(data)=>{
 
 
 
-
+useEffect(()=>{
+  if (!token || !token.length) {
+    if (localStorage.length > 0) {
+        const tokenStorage = localStorage.getItem('token')
+        const userStorage = JSON.parse(localStorage.getItem('user'))
+        console.log(tokenStorage);
+        console.log(userStorage);
+        const data = { user: userStorage, token: tokenStorage }
+        dispatch(login(data))
+    }
+    getCategory()
+    getProducts()
+}
+},[token,productos])
 
 
 

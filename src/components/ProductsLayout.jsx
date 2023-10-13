@@ -11,6 +11,7 @@ const ProductsLayout = (props) => {
 const {productos, categoryChecked, setProductos, productosFiltrados, searchValue} =props
 const  productoStore  = useSelector((store) => store.productos)
 console.log("aca: " , productoStore)
+ const [change,setChange]=useState(false)
 useEffect(()=>{
   },[])
    
@@ -64,6 +65,9 @@ dispatch(agregarObjeto(producto))
   return (
   
     <div className= 'w-full flex justify-around  sm:pt-3 '>
+    <div className='w-full'>
+      {change&&<Details/>}
+    <div className= 'w-full flex p-2 '>
          
         
 
@@ -74,7 +78,6 @@ mapear()
    
 
 </div>
-
   )
 }
 
