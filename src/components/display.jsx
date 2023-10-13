@@ -10,7 +10,7 @@ import menu from '../../public/images/menu.png?url'
 import close from '../../public/images/close.png?url'
 import logIn from '../../public/images/signIn.png'
 import register from '../../public/images/register.png?url'
-import logo from '../../public/images/logo.jpeg'
+import logo from '../../public/images/logo.png'
 import { useSelector,useDispatch } from 'react-redux'
 import signOut from '../redux/actions/signOutAction.js'
 
@@ -24,19 +24,19 @@ const display = ({ open, setOpen }) => {
 
         <div className={`relative ${open ? "lg:w-3/12" : "lg:w-1/12"} lg:h-screen flex flex-col items-center justify-between lg:pt-20 lg:pb-10 min-[320px]:py-5 border-b lg:border-r lg:border-b-0 border-black min-[320px]:gap-5`}>
             <img onClick={() => setOpen(!open)} className={`absolute block cursor-pointer ${!open ? "top-4 left-9 w-6" : "top-2 right-2 w-8"}`} src={!open ? menu : close} alt="" />
-            <img className={`${!open && "absolute top-3 right-3"} block lg:hidden w-16`} src={logo} alt="" />
+            <img className={`${!open && "absolute top-3 right-3 w-20"} block lg:hidden w-20`} src={logo} alt="" />
 
-            <div className={`w-full min-[320px]:hidden lg:flex min-[320px]:px-4 lg:px-0 justify-center items-start gap-5 ${!open && "hidden"}`}>
+            <div className={`w-full min-[320px]:hidden lg:flex min-[320px]:px-4 lg:px-0 gap-2 justify-center items-center ${!open && "hidden"}`}>
                 <Link to={'/Me'}>
                     {user?.photo ?
-                            <img className='w-16 h-16 rounded-full' src={user.photo} alt="" />
+                            <img className={`${open?"w-12 h-12":"w-16 h-16"} rounded-full`} src={user.photo} alt="" />
                             :
-                        <img className='w-16 h-16 rounded-full' src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" /> }
+                        <img className={`${open?"w-12 h-12":"w-16 h-16"} rounded-full`} src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" /> }
                 </Link>
                 {token&&open &&
                     <div>
-                        <h1 className='font-bold text-xl'>{user.name||"not finded"}</h1>
-                        <p className='text-sm'>{user.email}</p>
+                        <h1 className='font-bold text-xl'>{user?.name||"not finded"}</h1>
+                        <p className='text-xs'>{user?.email}</p>
                     </div>}
             </div>
 
@@ -49,7 +49,7 @@ const display = ({ open, setOpen }) => {
                     <img className='w-6 h-6' src={ProductsIcon} alt="" />
                     {open && "Products"}
                 </Link></li>
-                <li className={`${open && "min-[320px]:w-5/12"}`}><Link to={'/'} className='flex gap-4 justify-start'>
+                <li className={`${open && "min-[320px]:w-5/12"}`}><Link to={'/AboutUs'} className='flex gap-4 justify-start'>
                     <img className='w-6 h-6' src={Information} alt="" />
                     {open && "Information"}
                 </Link></li>
@@ -59,7 +59,7 @@ const display = ({ open, setOpen }) => {
                 </Link></li>
                 {!token ? <>
                     <li className={`${open && "min-[320px]:w-5/12"}`}>
-                    <Link to={'/SingIn'} className='flex gap-4 justify-start'>
+                    <Link to={'/SignIn'} className='flex gap-4 justify-start'>
                         <img className='w-6 h-6' src={logIn} alt="" />
                         {open && "Log In"}
                     </Link>
@@ -73,7 +73,7 @@ const display = ({ open, setOpen }) => {
                 </>
                     :<>
                     <li className={`${open&&"min-[320px]:w-5/12"} lg:hidden`}><Link to={'/Me'} className='flex gap-4 justify-start'>
-                        <img className='w-6 h-6 rounded-full' src={token?user.photo:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} alt="" />
+                        <img className='w-6 h-6 rounded-full' src={token?user?.photo:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} alt="" />
                         {open && "Profile"}
                     </Link></li>
                     <li className={`${open&&"min-[320px]:w-5/12"}`}>
@@ -84,22 +84,8 @@ const display = ({ open, setOpen }) => {
                 }
             </ul>
 
-            {/* {!token ? <>
-                    <Link to={'/'} className='flex gap-4'>
-                        <img className='w-6 h-6 ' src={logIn} alt="" />
-                        {open && "Log In"}
-                    </Link>
-                    <Link to={'/'} className='flex gap-4'>
-                        <img className='w-6 h-6 ' src={register} alt="" />
-                        {open && "Register"}
-                    </Link>
-                </>
-                    :
-                    <Link to={'/'}>        <img className='w-6 h-6 rounded-full' src={LogOut} alt="" />
-                        {open && "Log Out"}</Link>
-                } */}
 
-            <img className='w-16 h-16 rounded-full min-[320px]:hidden lg:block' src={logo} alt="" />
+            <img className={`${open?"w-36 h-36":"w-20 h-20"} rounded-full min-[320px]:hidden lg:block`} src={logo} alt="" />
         </div>
     )
 }

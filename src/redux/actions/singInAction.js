@@ -3,6 +3,10 @@ import axios from 'axios';
 const api = 'http://localhost:8080';
 // Acción asincrónica para iniciar sesión
 const login = createAsyncThunk('login', async (data) => {
+    if (data.token) {
+        return {token:data.token,
+        user:data.user}
+    }
     try {
         if (data.token) {
             return {token:data.token,
@@ -14,7 +18,7 @@ const login = createAsyncThunk('login', async (data) => {
         return {token:res.data.response.token,
         user:res.data.response.user}
     } catch (error) {
-        return {error:error.response.data.message}
+        return {error:error.response.data.error}
     }
 })
 export default login

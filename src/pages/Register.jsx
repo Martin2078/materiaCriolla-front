@@ -82,8 +82,8 @@ const Register = () => {
   return (
     <div className="register-container w-full h-screen flex flex-col md:flex-row">
       <div className="w-full md:w-2/3 flex flex-col items-center justify-center p-8">
-        <h1 className="text-3xl font-bold mb-1">Join Us</h1>
-        <form className="bg-white shadow-2xl rounded px-8 mb-4" onSubmit={handleSubmit}>
+        <h1 className="text-3xl font-bold mb-1 pt-5 md:pt-32">Join Us</h1>
+        <form className="bg-white shadow-2xl rounded px-8 mb-4 ml-4" onSubmit={handleSubmit}>
           <div className="mb-4 flex flex-col md:flex-row">
             <div className="md:mr-4">
               <label htmlFor="name" className="block text-gray-700 font-bold mb-0">Name</label>
@@ -233,11 +233,11 @@ const Register = () => {
           )} */}
         </form>
       </div>
-      <div className="w-full md:w-1/2 shadow-md p-6 rounded bg-white px-8 pb-4 m-4">
+      <div className="w-full rounded-2xl md:w-1/2 mt-16 shadow-md p-6 md:rounded-2xl bg-white px-2 pb-2 m-4">
         <img
           src="public/img/1.png"
           alt="Registration Image"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover hidden md:block"
         />
       </div>
       <ToastContainer
