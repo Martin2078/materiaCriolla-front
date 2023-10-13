@@ -47,7 +47,7 @@ useEffect(()=>{
 
   return (
     <div className='w-full'>
-      {change&&<Details/>}
+      {change&&<Details change={change} setChange={setChange}/>}
     <div className= 'w-full flex p-2 '>
          
         
