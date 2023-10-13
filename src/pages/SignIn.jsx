@@ -36,11 +36,12 @@ function SignIn() {
         const userData = { email, password };
         dispatch(Login(userData))
             .then(res => {
+                console.log(res);
                 if (res.payload.error) {
                     toast.error(res.payload.error);
                 }
                 else {
-                    toast.success('Inicio de sesiÃ³n exitoso.');
+                    toast.success('successful login');
                 }
             })
             .catch((error) => {
@@ -49,14 +50,13 @@ function SignIn() {
     };
 
     return (
-
         <div className="login-container w-full h-screen flex flex-col md:flex-row">
             <div className="w-full md:w-2/3 flex flex-col items-center justify-center p-8">
                 <h1 className="text-4xl font-bold mb-8">Login</h1> {/* Aumenta el tamaño del título y agrega margen inferior */}
                 <div className="text-center font-base text-black mb-4"> {/* Agrega margen inferior al texto */}
                     Let's drink mate
                 </div>
-                <form className="bg-white shadow-2xl rounded p-4 md:p-12 mb-4 "> {/* Aumenta el padding del formulario */}
+                <form onSubmit={handleSignIn} className="bg-white shadow-2xl rounded p-4 md:p-12 mb-4 "> {/* Aumenta el padding del formulario */}
                     <div className="md:mr-4">
                         <label htmlFor="email" className="block text-gray-700 font-bold mt-2">Email</label>
                         <input
@@ -74,7 +74,7 @@ function SignIn() {
                         />
                     </div>
                     <div className='flex flex-col pt-8 md:flex-row'> {/* Aumenta el padding superior del botón */}
-                        <button
+                        <button onClick={() => handleSignIn()}
                             type="submit"
                             className="text-white text-2xl font-bold py-2 px-4 rounded mt-4 md:mt-0 w-full"
                             style={{ backgroundImage: 'url("public/images/madera.png")', backgroundSize: 'cover' }}

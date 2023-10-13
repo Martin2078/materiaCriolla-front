@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import login from '../redux/actions/singInAction';
 
 const MyCarousel = () => {
-  const dispatch = useDispatch()
-  const { user, token } = useSelector(store => store.profile)
-  useEffect(() => {
-    if (!token || !token.length) {
-      if (localStorage.length > 0) {
+  const dispatch=useDispatch()
+  const {user,token}=useSelector(store=>store.profile)
+useEffect(()=>{
+  if (!token || !token.length) {
+    if (localStorage.length > 0) {
         const tokenStorage = localStorage.getItem('token')
         const userStorage = JSON.parse(localStorage.getItem('user'))
         console.log(tokenStorage);
