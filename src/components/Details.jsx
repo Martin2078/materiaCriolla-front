@@ -12,11 +12,22 @@ const Details = ({ detail, change, setChange }) => {
 
   // },[quantitySelect])
   function getQuantity(e) {
-    if (e.target.value==4) {
+    if (e.target.value == 4) {
       setQuantitySelect(true)
-    }else{
+    } else {
       setQuantity(e.target.value)
     }
+  }
+  function quantityRender() {
+    let template=[]
+    for (let i = 1; i <= detail.quantity; i++) {
+      if (i==1) {  
+        template.push(<option value="1">1 unidad</option>)
+      }else{
+        template.push(<option value={i}>{i} unidades</option>)
+      }
+    }
+    return template
   }
   function addPhoto(e) {
     const photo = e.target.files[0]
@@ -64,7 +75,11 @@ const Details = ({ detail, change, setChange }) => {
             <div className='w-full h-2/6 md:h-1/6 flex flex-col gap-1'>
               <p className='text-lg font-semibold'>Colors</p>
               <div className='w-full h-fit flex gap-2 '>
-                {detail.colors.map((color, index) => {
+                {detail.colors.length==0? <div className='h-8 flex items-center justify-center py-1 px-2 w-fit border border-black border-dashed'>
+                      <p>black</p>
+                    </div>
+                    :
+                    detail.colors.map((color, index) => {
                   return (
                     <div key={index} className='h-8 flex items-center justify-center py-1 px-2 w-fit border border-black border-dashed'>
                       <p>{color}</p>
@@ -73,15 +88,21 @@ const Details = ({ detail, change, setChange }) => {
               </div>
             </div>
             <div className='w-full h-12 md:h-0'>
-              {quantitySelect ?(
-                <input className='border border-black px-1' placeholder='Quantity'  type="text" defaultValue={1} onChange={(e) => setQuantity(e.target.value)} />)
+              {quantitySelect
+                ?
+                <input className='border border-black px-1' placeholder='Quantity' type="text" defaultValue={1} onChange={(e) => setQuantity(e.target.value)} />
                 :
-                <select onClick={(e)=>getQuantity(e)} name="quantity" id="">
-                  <option value="1">1 unidad</option>
-                  <option value="2">2 unidades</option>
-                  <option value="3">3 unidades</option>
-                  <option value="4">Otros</option>
-                </select>}
+                (<select onClick={(e) => {getQuantity(e);console.log(e.target.value)}} name="quantity" id="">
+                  {detail.quantity > 4 ? <>
+                    <option value="1">1 unidad</option>
+                    <option value="2">2 unidades</option>
+                    <option value="3">3 unidades</option>
+                    <option value="4">Otros</option></>
+                    : quantityRender()
+                  }
+                </select>)
+                  
+                }
             </div>
 
           </div>
