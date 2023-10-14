@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import login from '../redux/actions/singInAction';
 
