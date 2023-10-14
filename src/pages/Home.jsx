@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import login from '../redux/actions/singInAction';
 
 const MyCarousel = () => {
   const [products, setProducts] = useState([])
@@ -18,7 +21,20 @@ const MyCarousel = () => {
   useEffect(() => {
     getProducts()
   },[])
-  console.log(products);
+  console.log(products);  const dispatch=useDispatch()
+  const {user,token}=useSelector(store=>store.profile)
+useEffect(()=>{
+  if (!token || !token.length) {
+    if (localStorage.length > 0) {
+        const tokenStorage = localStorage.getItem('token')
+        const userStorage = JSON.parse(localStorage.getItem('user'))
+        console.log(tokenStorage);
+        console.log(userStorage);
+        const data = { user: userStorage, token: tokenStorage }
+        dispatch(login(data))
+      }
+    }
+  }, [token])
   return (
     <div className="w-full max-w-screen-xl mx-auto flex lg:px-5 gap-4">
       <div className="w-3/4">

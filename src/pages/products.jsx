@@ -3,15 +3,17 @@ import React, { useEffect, useState } from 'react'
 import ProductsLayout from '../components/ProductsLayout'
 import CategoryLayout from '../components/CategoryLayout'
 import { useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import login from '../redux/actions/singInAction'
 
 const Products = () => {
 
 const[category, setCategory]=useState([])
 const[productos,setProductos]=useState([])
 const [categoryChecked, setCategoryChecked]  = useState([])
-const [productosFiltrados, setProductosFiltrados] = useState(productos)
-const [searchValue, setSearchValue] = useState([])
-const [filterProMax, setFilterProMax] = useState([])
+const [productosFiltrados, setProductosFiltrados] = useState([])
+const [searchValue, setSearchValue] = useState(productos)
+const [filterProMax, setFilterProMax] = useState(productos)
 
 const search = useRef();
 useEffect(()=>{
@@ -21,19 +23,40 @@ useEffect(()=>{
    
   },[])
 
-
+  const handleFilter = (data) =>{
+    console.log("en la funcion: ", searchValue)
+    if(data == "cat"){
+      if(searchValue.length > 0){
+        setProductosFiltrados(searchValue)
+      } else{
+        setProductosFiltrados(productos)
+        
+      }
+      
+    } else{
+      if(filterProMax.length >0){
+        setProductosFiltrados(filterProMax)
+      } else{
+        setProductosFiltrados(productos)
+      }
+      
+    }
+  }
+const dispatch=useDispatch()
+  const {user,token}=useSelector(store=>store.profile)
 
   const  getProducts = async() =>{
     await axios("http://localhost:8080/products")
     .then((res)=>{
         setProductos(res.data.response)
         setProductosFiltrados(res.data.response)
+        setFilterProMax(res.data.response)
+        setSearchValue(res.data.response)
         
     })
     .catch((err) => console.log(err));
    
 }
-
 
 const  getCategory = async() =>{
     await axios("http://localhost:8080/categorys")
@@ -49,8 +72,20 @@ const filter =(data)=>{
    
     let filtrados = []
    
-    
-    productosFiltrados.forEach(element =>{
+    searchValue.forEach(element=>{
+      if(element.name.includes(data) && data != ""){
+        console.log("entra")
+        filtrados = searchValue.filter((elemento)=>elemento.name.includes(data))
+        console.log(filtrados)
+        setFilterProMax(filtrados)
+        setProductosFiltrados(filtrados)
+      } else{
+        setFilterProMax(productos)
+        setProductosFiltrados(productos)
+      }
+    })
+   
+   /* productosFiltrados.forEach(element =>{
         if(element.name.includes(data)){
             
            // filtrados.push(element)
@@ -101,13 +136,26 @@ const filter =(data)=>{
        //     console.log("no contiene")
        // }
         
-    });
+    });*/
     
 }
 
 
 
-
+useEffect(()=>{
+  if (!token || !token.length) {
+    if (localStorage.length > 0) {
+        const tokenStorage = localStorage.getItem('token')
+        const userStorage = JSON.parse(localStorage.getItem('user'))
+        console.log(tokenStorage);
+        console.log(userStorage);
+        const data = { user: userStorage, token: tokenStorage }
+        dispatch(login(data))
+    }
+    getCategory()
+    getProducts()
+}
+},[token,productos])
 
 
 
@@ -130,7 +178,7 @@ const filter =(data)=>{
 
       
    </div>
-<div className='w-2/7 flex flex-col'>
+<div className='w-2/7 absolute h-screen flex  flex-col'>
 <p className='text-xl'>tips</p>
 </div>
  
@@ -138,7 +186,7 @@ const filter =(data)=>{
  
 
 </div>
-<div className='flex w-full justify-start gap-16 text-center bg-gray-300 p-1 h-16'>
+<div className='flex w-full justify-around text-center bg-gray-300  h-16'>
 
 
 
@@ -154,6 +202,8 @@ productosFiltrados = {productosFiltrados}
 setProductosFiltrados = {setProductosFiltrados}
 setSearchValue = {setSearchValue}
 filterProMax ={filterProMax}
+searchValue = {searchValue}
+handleFilter = {handleFilter}
 
 
 />
