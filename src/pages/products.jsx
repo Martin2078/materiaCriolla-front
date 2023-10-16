@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable no-unused-vars */
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import ProductsLayout from '../components/ProductsLayout'
@@ -18,18 +20,14 @@ const Products = () => {
 
   const search = useRef();
   useEffect(() => {
-
     getCategory()
     getProducts()
-
   }, [])
 
   const setShow = () => {
 
-
     if (categoryChecked.length > 0) {
       setShowTips(true)
-
     } else {
       setShowTips(false)
     }
@@ -43,9 +41,7 @@ const Products = () => {
         setProductosFiltrados(searchValue)
       } else {
         setProductosFiltrados(productos)
-
       }
-
     } else {
       if (filterProMax.length > 0) {
         setProductosFiltrados(filterProMax)
@@ -82,17 +78,16 @@ const Products = () => {
   const filter = (data) => {
 
     console.log(data)
+
     let filtrados = []
+
     console.log("searchvalue: ", searchValue)
+
     searchValue.forEach(element => {
       let nombre = element.name.toLowerCase()
       if (nombre.includes(data) && data != "") {
-
-
         filtrados.push(element)
         console.log(filtrados)
-      } else {
-
       }
     })
     console.log(filtrados)
@@ -108,39 +103,20 @@ const Products = () => {
         console.log("vacio")
         setProductosFiltrados([])
       }
-
     }
-
-
-
-
   }
-
-
-
-
-
 
   console.log(showTips)
 
   return (
     <div className='w-full h-screen '>
       <div className='flex flex-row-reverse justify-between'>
-
-
-
         {categoryChecked.length > 0 ? <Tips
           categoryChecked={categoryChecked}
         /> : null}
-
         <div className='w-full '>
-
-
-
           <div className='w-full flex p-2 justify-between'>
             <p className='w-1/2  text-xl md:text-4xl'>Products</p>
-
-
             <div className="w-1/2 ">
               <div className="relative ">
                 <input type="search" onChange={(e) => { handleSearch(e) }} ref={search} className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 text-xs placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-2xl sm:leading-6 sm:h-16" placeholder="search your Product" />
@@ -150,23 +126,9 @@ const Products = () => {
                   </svg>
                 </div>
               </div>
-
-
             </div>
-
-
-
-
           </div>
-
-
-
-
-
           <div className='flex w-full justify-around text-center bg-gray-300  h-16'>
-
-
-
             <CategoryLayout
               categorias={category}
               setCategoryChecked={setCategoryChecked}
@@ -183,12 +145,8 @@ const Products = () => {
               handleFilter={handleFilter}
               setShow={setShow}
               setCheck={setCheck}
-
-
             />
-
           </div>
-
           <ProductsLayout
             productos={productos}
             categoryChecked={categoryChecked}
@@ -198,8 +156,6 @@ const Products = () => {
             filterProMax={filterProMax}
             setProductosFiltrados={setProductosFiltrados}
             setSearchValue={setSearchValue}
-
-
           />
         </div>
       </div>
