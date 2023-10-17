@@ -9,6 +9,7 @@ const Products = () => {
     const [change, setChange] = useState(false)
     const [detail, setDetail] = useState(null)
     const [checked, setChecked] = useState([])
+    const [nameFilter, setNameFilter] = useState("")
     const arrayChecked = checked.map(checkbox => checkbox)
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target
@@ -30,14 +31,16 @@ const Products = () => {
         const filtered = products.filter( product => product.name.toLowerCase().includes( name.toLowerCase()))
         return filtered
     }
-    const filteredProducts = filterByCategory(products, arrayChecked)
+    const filteredProductsByName = filterByName(products, nameFilter)
+    const filteredProducts = filterByCategory(filteredProductsByName, arrayChecked)
+    
 
     return (
         <div className='h-full w-full flex items-center'>
             {change && <Details detail={detail} change={change} setChange={setChange} />}
             <div className='lg:w-3/6 min-[320px]:w-5/6 bg-white flex items-center  lg:rounded-lg lg:px-4 lg:py-1 gap-2 min-[320px]:rounded-full min-[320px]:py-2 min-[320px]:px-2'>
                 <button className='bg-white rounded'><img src="/images/search-icon.png" alt="" /></button>
-                <input id='search' type="search" className='w-full h-8 border-none text-center' placeholder='Find Your Product Here' />
+                <input id='search' type="search" className='w-full h-8 border-none text-center' placeholder='Find Your Product Here' value={nameFilter} onChange={(e) => setNameFilter(e.target.value)}/>
             </div>
             <div className='flex flex-col items-center h-fit bg-white lg:-translate-y-10 min-[320px]:-translate-y-12 py-5 lg:rounded-xl lg:w-11/12 min-[320px]:w-full min-[320px]:rounded-t-[55px]'>
                 <div className='w-3/6 flex justify-evenly mb-10 mt-5 min-[320px]:gap-2 lg:gap-0'>
