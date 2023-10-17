@@ -6,7 +6,7 @@ import SignIn from '../pages/SignIn'
 import Profile from '../pages/Profile'
 import Register from '../components/Register'
 import Checkout from '../pages/Checkout'
-import Products from '../pages/products'
+import Products from '../pages/Productos'
 
 
 const router = createBrowserRouter([

@@ -1,12 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import carrito from '../../public/images/añadir-a-carrito.png'
-import close from '../../public/images/close.png'
-import añadir from '../../public/images/añadir.png'
+import carrito from '/images/añadir-a-carrito.png'
+import close from '/images/close.png'
+import añadir from '/images/añadir.png'
+import { useDispatch } from 'react-redux'
+import paymentAction from '../redux/actions/paymentAction'
 
 const Details = ({ detail, change, setChange }) => {
+  const dispatch = useDispatch()
   const [actualPhoto, setActualPhoto] = useState(detail.product_photo[0])
   const [quantity, setQuantity] = useState(1)
   const [quantitySelect, setQuantitySelect] = useState(false)
+  const { name, price } = detail
+
+  const handlePayment = async (title,price,quantity) => {
+    try {
+      const response = await dispatch(paymentAction({title, price, quantity}))
+      console.log(response)
+      if (response.payload.operation_type && response.payload.operation_type === 'regular_payment') {
+        window.location.href = response.payload.init_point
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   // useEffect(()=>{
 
@@ -107,7 +123,12 @@ const Details = ({ detail, change, setChange }) => {
 
           </div>
           <div className='flex w-5/6 h-10 gap-5'>
-            <button className="w-9/12 rounded-lg text-white text-xl bg-[url('../../public/images/madera.png')]">Buy</button>
+            <button
+              onClick={()=>handlePayment(name,price,quantity)}
+              className="w-9/12 rounded-lg text-white text-xl bg-[url('/images/madera.png')]"
+            >
+              Buy
+            </button>
             <button><img className='w-8 h-8' src={carrito} alt="" /></button>
           </div>
 

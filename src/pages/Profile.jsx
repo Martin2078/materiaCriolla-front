@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
-import editIcon from '../../public/images/edit.png?url'
-import flecha from '../../public/images/flechaPaginacion.png?url'
+import editIcon from '/images/edit.png?url'
+import flecha from '/images/flechaPaginacion.png?url'
 import LastBuys from '../components/LastBuys'
-import accept from '../../public/images/accept.png?url'
-import remove from '../../public/images/remove.png?url'
+import accept from '/images/accept.png?url'
+import remove from '/images/remove.png?url'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import BuyDetail from '../components/BuyDetail'
