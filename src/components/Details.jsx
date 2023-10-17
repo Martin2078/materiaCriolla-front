@@ -12,9 +12,9 @@ const Details = ({ detail, change, setChange }) => {
   const [quantitySelect, setQuantitySelect] = useState(false)
   const { name, price } = detail
 
-  const handlePayment = async (title,price,quantity) => {
+  const handlePayment = async (title, price, quantity) => {
     try {
-      const response = await dispatch(paymentAction({title, price, quantity}))
+      const response = await dispatch(paymentAction({ title, price, quantity }))
       console.log(response)
       if (response.payload.operation_type && response.payload.operation_type === 'regular_payment') {
         window.location.href = response.payload.init_point
@@ -24,9 +24,6 @@ const Details = ({ detail, change, setChange }) => {
     }
   }
 
-  // useEffect(()=>{
-
-  // },[quantitySelect])
   function getQuantity(e) {
     if (e.target.value == 4) {
       setQuantitySelect(true)
@@ -34,17 +31,19 @@ const Details = ({ detail, change, setChange }) => {
       setQuantity(e.target.value)
     }
   }
+
   function quantityRender() {
-    let template=[]
+    let template = []
     for (let i = 1; i <= detail.quantity; i++) {
-      if (i==1) {  
+      if (i == 1) {
         template.push(<option value="1">1 unidad</option>)
-      }else{
+      } else {
         template.push(<option value={i}>{i} unidades</option>)
       }
     }
     return template
   }
+
   function addPhoto(e) {
     const photo = e.target.files[0]
   }
@@ -68,7 +67,7 @@ const Details = ({ detail, change, setChange }) => {
               <input onChange={(e) => addPhoto(e)} className='w-8 h-8 absolute top-0 opacity-0' type="file" />
             </div>
           </div>
-          <img className='w-full h-full object-cover object-center rounded-lg' src={actualPhoto} alt="" />
+          <img className='w-full max-h-64 object-contain rounded-lg' src={actualPhoto} alt="" />
         </div>
         <div className='w-full h-fit md:w-1/2 md:h-full flex flex-col items-center justify-between py-4 overflow-y-scroll md:overflow-hidden'>
           <div className='w-5/6 h-fit md:h-5/6 flex flex-col gap-1 md:gap-4 lg:gap-3'>
@@ -84,16 +83,16 @@ const Details = ({ detail, change, setChange }) => {
             <div className='w-full h-2/6 md:h-1/6 flex flex-col gap-1'>
               <p className='text-lg font-semibold'>Colors</p>
               <div className='w-full h-fit flex gap-2 '>
-                {detail.colors.length==0? <div className='h-8 flex items-center justify-center py-1 px-2 w-fit border border-black border-dashed'>
-                      <p>black</p>
-                    </div>
-                    :
-                    detail.colors.map((color, index) => {
-                  return (
-                    <div key={index} className='h-8 flex items-center justify-center py-1 px-2 w-fit border border-black border-dashed'>
-                      <p>{color}</p>
-                    </div>)
-                })}
+                {detail.colors.length == 0 ? <div className='h-8 flex items-center justify-center py-1 px-2 w-fit border border-black border-dashed'>
+                  <p>black</p>
+                </div>
+                  :
+                  detail.colors.map((color, index) => {
+                    return (
+                      <div key={index} className='h-8 flex items-center justify-center py-1 px-2 w-fit border border-black border-dashed'>
+                        <p>{color}</p>
+                      </div>)
+                  })}
               </div>
             </div>
             <div className='w-full h-12 md:h-0'>
@@ -101,12 +100,12 @@ const Details = ({ detail, change, setChange }) => {
                 ?
                 <input className='border border-black px-1' placeholder='Quantity' type="text" defaultValue={1} onChange={(e) => setQuantity(e.target.value)} />
                 :
-                (<select onClick={(e) => {getQuantity(e);console.log(e.target.value)}} name="quantity" id="">
+                (<select onClick={(e) => { getQuantity(e); console.log(e.target.value) }} name="quantity" id="">
                   {detail.quantity > 4 ? <>
-                    <option value="1">1 unidad</option>
-                    <option value="2">2 unidades</option>
-                    <option value="3">3 unidades</option>
-                    <option value="4">Otros</option></>
+                    <option value="1">1 unit</option>
+                    <option value="2">2 units</option>
+                    <option value="3">3 units</option>
+                    <option value="4">Others</option></>
                     : quantityRender()
                   }
                 </select>)}
@@ -114,12 +113,13 @@ const Details = ({ detail, change, setChange }) => {
           </div>
           <div className='flex w-5/6 h-10 gap-5'>
             <button
-              onClick={()=>handlePayment(name,price,quantity)}
+              onClick={() => handlePayment(name, price, quantity)}
               className="w-9/12 rounded-lg text-white text-xl bg-[url('/images/madera.png')]"
             >
               Buy
             </button>
-            <button><img className='w-8 h-8' src={carrito} alt="" /></button>
+            <button><img className='w-8 h-8' src={carrito} alt="" />
+            </button>
           </div>
         </div>
       </div>
