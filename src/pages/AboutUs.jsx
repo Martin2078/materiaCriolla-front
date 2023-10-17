@@ -1,12 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-no-duplicate-props */
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSpring, animated } from 'react-spring';
 import '../AboutUs.css'
+import { useDispatch, useSelector} from 'react-redux'
+import login from '../redux/actions/singInAction';
 
 const ContactForm = () => {
+  const dispatch=useDispatch()
+  const {user,token}=useSelector((store)=>store.profile)
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -61,6 +66,17 @@ const ContactForm = () => {
     opacity: 1,
     from: { opacity: 1 },
   });
+
+  useEffect(()=>{
+    if (!token || !token.length) {
+      if (localStorage.length > 0) {
+        const tokenStorage = localStorage.getItem('token')
+        const userStorage = JSON.parse(localStorage.getItem('user'))
+        const data2 = { user: userStorage, token: tokenStorage }
+        dispatch(login(data2))
+      }
+    }
+  },[token])
 
   return (
     <div className="register-container w-full h-screen flex flex-col md:flex-row">
@@ -141,7 +157,7 @@ const ContactForm = () => {
           </video>
         </div>
         <animated.h1 
-        style={missionAnimation} className="text-3xl font-bold mb-4"style={{ position: 'relative', zIndex: 2 }}> Our Mission</animated.h1>
+        style={missionAnimation} className="text-3xl font-bold mb-4" style={{ position: 'relative', zIndex: 2 }}> Our Mission</animated.h1>
         <animated.p style={missionAnimation} className="text-white-700" style={{ position: 'relative', zIndex: 2 }}>
         At Materia Criolla, we're dedicated to sharing the tradition of mate with the world through high-quality products, fostering community, and promoting well-being.
         </animated.p>

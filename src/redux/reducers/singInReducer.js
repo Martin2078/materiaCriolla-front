@@ -2,6 +2,8 @@ import login from '../actions/singInAction.js';
 import signOut from '../actions/signOutAction.js';
 import userChangeAction from '../actions/userChangeAction.js';
 import { createReducer } from '@reduxjs/toolkit';
+import checkoutActions from '../actions/checkoutAction.js';
+const { addCheckout,deleteCheckout,updateCheckout}=checkoutActions
 
 
 const initialState = {
@@ -62,6 +64,33 @@ const authReducer = createReducer(initialState, (builder) => {
         })
         .addCase(signOut.fulfilled, (state, action) => {
             return initialState
+        })
+        .addCase(addCheckout.fulfilled,(state,action)=>
+        {
+            let nuevoEstado={
+                ...state,
+                user:action.payload.user,
+                loading:false,
+            }
+            return nuevoEstado
+        })
+        .addCase(deleteCheckout.fulfilled,(state,action)=>
+        {
+            let nuevoEstado={
+                ...state,
+                user:action.payload.user,
+                loading:false,
+            }
+            return nuevoEstado
+        })
+        .addCase(updateCheckout.fulfilled,(state,action)=>
+        {
+            let nuevoEstado={
+                ...state,
+                user:action.payload.user,
+                loading:false,
+            }
+            return nuevoEstado
         })
 
 })
