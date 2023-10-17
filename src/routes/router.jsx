@@ -4,9 +4,11 @@ import Home from '../pages/Home'
 import Layout from '../layouts/Layout'
 import SignIn from '../pages/SignIn'
 import Profile from '../pages/Profile'
-import Register from '../components/Register'
+import Register from '../pages/Register'
 import Checkout from '../pages/Checkout'
-import Products from '../pages/products'
+import Products from '../pages/Productos'
+import AboutUs from '../pages/AboutUs'
+
 
 
 const router = createBrowserRouter([
@@ -36,7 +38,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/Products",
-                element: <Products />,
+                element: <Products/>, 
+            },
+            {
+                path: "/AboutUs",
+                element: <AboutUs/>, 
             }
         ],
     },
