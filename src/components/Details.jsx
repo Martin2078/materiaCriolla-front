@@ -2,15 +2,47 @@ import React, { useEffect, useState } from 'react'
 import carrito from '/images/añadir-a-carrito.png'
 import close from '/images/close.png'
 import añadir from '/images/añadir.png'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import paymentAction from '../redux/actions/paymentAction'
+import checkoutActions from '../redux/actions/checkoutAction'
+import quitarCarrito from '../../public/images/quitar-de-carrito.png'
+import {toast,Toaster} from 'react-hot-toast'
 
+const addCheckout=checkoutActions.addCheckout
+const deleteCheckout=checkoutActions.deleteCheckout
 const Details = ({ detail, change, setChange }) => {
   const dispatch = useDispatch()
+  const user = useSelector(store => store.profile.user)
+  let finded
+  const [added,setAdded]=useState(false)
   const [actualPhoto, setActualPhoto] = useState(detail.product_photo[0])
   const [quantity, setQuantity] = useState(1)
   const [quantitySelect, setQuantitySelect] = useState(false)
   const { name, price } = detail
+
+  async function addToCheckout() {
+    let product_id = {
+      quantity,
+      _id: detail._id
+    }
+    dispatch(addCheckout(product_id))
+    .then(res=>{
+      if (res.payload.user) {
+        toast.success(res.payload.message)
+      }
+    })
+  }
+  async function deleteProduct() {
+    let productInfo = {
+      _id: detail._id
+    }
+    dispatch(deleteCheckout(productInfo))
+    .then(res=>{
+      if (res.payload.user) {
+        toast.success(res.payload.message)
+      }
+    })
+  }
 
   const handlePayment = async (title, price, quantity) => {
     try {
@@ -47,9 +79,22 @@ const Details = ({ detail, change, setChange }) => {
   function addPhoto(e) {
     const photo = e.target.files[0]
   }
+  useEffect(()=>{
+    if (user && user.checkout.length) {
+      finded = user.checkout.map(product => product.product_id).find(product=>product._id===detail._id)
+      if (finded) {
+        setAdded(true)
+      }else{
+        setAdded(false)
+      }
+    }
+
+
+  },[user])
 
   return (
-    <div className='fixed top-0 left-0 w-screen h-screen py-4 md:py-0 px-4 lg:px-0 bg-[#999] bg-opacity-50 flex justify-center items-center z-10'>
+    <div key={detail._id} className='fixed top-0 left-0 w-screen h-screen py-4 md:py-0 px-4 lg:px-0 bg-[#999] bg-opacity-50 flex justify-center items-center z-10'>
+      <Toaster position='top-center'/>
       <div className='w-full h-full xl:w-8/12 lg:w-10/12 md:h-4/6 bg-white pt-10 md: md:py-10 px-5 flex flex-col md:flex-row relative rounded-lg'>
         <img onClick={() => setChange(!change)} className='w-10 h-10 cursor-pointer absolute top-1 right-1 md:top-2 md:right-2' src={close} alt="" />
         <div className='w-full relative md:w-1/2 md:h-full h-1/2 flex flex-col items-center border rounded-lg justify-between'>
@@ -118,8 +163,12 @@ const Details = ({ detail, change, setChange }) => {
             >
               Buy
             </button>
-            <button><img className='w-8 h-8' src={carrito} alt="" />
-            </button>
+            { added ?
+              <button onClick={() => deleteProduct()}><img className='w-8 h-8' src={quitarCarrito} alt="" /></button>
+              :
+              <button onClick={() => addToCheckout()}><img className='w-8 h-8' src={carrito} alt="" /></button>
+
+            }
           </div>
         </div>
       </div>
