@@ -22,11 +22,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/SignIn",
-                element: <SignIn/>,
+                element: <SignIn />,
             },
             {
-                path:"/Me",
-                element:<Profile/>
+                path: "/Me",
+                element: <Profile />
             },
             {
                 path: "/Register",
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/Checkout",
-                element: <Checkout/>, 
+                element: <Checkout />,
             },
             {
                 path: "/Products",

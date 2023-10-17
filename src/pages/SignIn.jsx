@@ -36,7 +36,6 @@ function SignIn() {
       toast.error('Both fields are empty', { appearance: 'error' });
       return;
     }
-
     const userData = { email, password }; // Datos del usuario a enviar al servidor
     dispatch(Login(userData))
       .then(res => {
