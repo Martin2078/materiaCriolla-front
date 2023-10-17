@@ -49,7 +49,7 @@ const display = ({ open, setOpen }) => {
                     <img className='w-6 h-6' src={ProductsIcon} alt="" />
                     {open && "Products"}
                 </Link></li>
-                <li className={`${open && "min-[320px]:w-5/12"}`}><Link to={'/'} className='flex gap-4 justify-start'>
+                <li className={`${open && "min-[320px]:w-5/12"}`}><Link to={'/AboutUs'} className='flex gap-4 justify-start'>
                     <img className='w-6 h-6' src={Information} alt="" />
                     {open && "Information"}
                 </Link></li>

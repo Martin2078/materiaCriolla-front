@@ -48,12 +48,11 @@ const Details = ({ detail, change, setChange }) => {
   function addPhoto(e) {
     const photo = e.target.files[0]
   }
+
   return (
     <div className='fixed top-0 left-0 w-screen h-screen py-4 md:py-0 px-4 lg:px-0 bg-[#999] bg-opacity-50 flex justify-center items-center z-10'>
       <div className='w-full h-full xl:w-8/12 lg:w-10/12 md:h-4/6 bg-white pt-10 md: md:py-10 px-5 flex flex-col md:flex-row relative rounded-lg'>
-
         <img onClick={() => setChange(!change)} className='w-10 h-10 cursor-pointer absolute top-1 right-1 md:top-2 md:right-2' src={close} alt="" />
-        {/* photo */}
         <div className='w-full relative md:w-1/2 md:h-full h-1/2 flex flex-col items-center border rounded-lg justify-between'>
           <div className='w-11/12 rounded-lg absolute bottom-2 bg-neutral-400 bg-opacity-50 border flex items-center justify-between border-black p-1 px-3'>
             <div className='flex gap-2 overflow-x-auto'>
@@ -71,21 +70,15 @@ const Details = ({ detail, change, setChange }) => {
           </div>
           <img className='w-full h-full object-cover object-center rounded-lg' src={actualPhoto} alt="" />
         </div>
-
-        {/* information */}
         <div className='w-full h-fit md:w-1/2 md:h-full flex flex-col items-center justify-between py-4 overflow-y-scroll md:overflow-hidden'>
-
           <div className='w-5/6 h-fit md:h-5/6 flex flex-col gap-1 md:gap-4 lg:gap-3'>
-
             <h3 className='text-3xl md:text-4xl w-full'>{detail.name}</h3>
-
             <div className='flex flex-col gap-2 h-2/5'>
               <p className='text-xl'>Description</p>
               <div className='w-full h-32 md:h-full border overflow-y-scroll p-1 px-2 rounded-lg'>
                 <p >{detail.description}</p>
               </div>
             </div>
-
             <p className='text-2xl'>${detail.price}</p>
             <p className='text-lg font-semibold'>Stock: {detail.quantity}</p>
             <div className='w-full h-2/6 md:h-1/6 flex flex-col gap-1'>
@@ -116,11 +109,8 @@ const Details = ({ detail, change, setChange }) => {
                     <option value="4">Otros</option></>
                     : quantityRender()
                   }
-                </select>)
-                  
-                }
+                </select>)}
             </div>
-
           </div>
           <div className='flex w-5/6 h-10 gap-5'>
             <button
@@ -131,7 +121,6 @@ const Details = ({ detail, change, setChange }) => {
             </button>
             <button><img className='w-8 h-8' src={carrito} alt="" /></button>
           </div>
-
         </div>
       </div>
     </div>
