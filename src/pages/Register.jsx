@@ -48,36 +48,41 @@ const Register = () => {
     e.preventDefault();
     if (formData.name && formData.surname && formData.email && formData.password && formData.birthdate) {
       dispatch(register(formData));
-      toast.success(
-        <div >
-          <img src="https://media.tenor.com/0F1IPiIH2IAAAAAd/chimavara-capivara.gif" alt="Éxito" />
-          Registro exitoso
-        </div>,
-        {
-          position: 'top-center', 
-          autoClose: 90000000,
-          className: 'custom-toast-success',
-          icon: null,
-        }
-      );
+      if (!registrationError) {
+        toast.success(
+          <div>
+            Successful registration
+          </div>,
+          {
+            position: 'top-center',
+            autoClose: 2000,
+            className: 'custom-toast-success',
+            icon: null,
+          }
+        );
+      }
     } else {
       if (!formData.name) {
-        toast.error('Por favor ingresa tu nombre');
+        toast.error('Please enter your name');
       }
       if (!formData.surname) {
-        toast.error('Por favor ingresa tu apellido');
+        toast.error('Please enter your last name');
       }
       if (!formData.email) {
-        toast.error('Por favor ingresa tu correo electrónico');
+        toast.error('Please enter your email');
       }
       if (!formData.password) {
-        toast.error('Por favor ingresa tu contraseña');
+        toast.error('Please enter your password');
       }
       if (!formData.birthdate) {
-        toast.error('Por favor ingresa tu fecha de nacimiento');
+        toast.error('Please enter your date of birth');
       }
     }
+    if (registrationError) {
+      toast.error(registrationError.message);
+    }
   };
+
 
   return (
     <div className="register-container w-full h-screen flex flex-col md:flex-row">
@@ -156,7 +161,6 @@ const Register = () => {
               />
             </div>
           </div>
-          {/* Más campos de dirección */}
           <div className="mb-4 flex flex-col md:flex-row">
             <div className="md:mr-4">
               <label htmlFor="province" className="block text-gray-700 font-bold mb-0">Province</label>
@@ -218,7 +222,6 @@ const Register = () => {
               />
             </div>
           </div>
-          {/* Botón de registro */}
           <div className='flex flex-col pb-2 md:flex-row'>
             <button
               type="submit"
@@ -251,7 +254,7 @@ const Register = () => {
         draggable
         pauseOnHover
         toastClassName="toast-without-icon"
-        icon={false}
+        icon={true}
       />
     </div>
   );

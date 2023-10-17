@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-no-duplicate-props */
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
@@ -24,7 +25,7 @@ const ContactForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.name && formData.email && formData.messageType && formData.message) {
-      toast.success('¡Mensaje enviado con éxito!', {
+      toast.success('Message sent succesfully!', {
         position: 'top-center',
         autoClose: 5000,
         className: 'custom-toast-success',
@@ -32,16 +33,16 @@ const ContactForm = () => {
       });
     } else {
       if (!formData.name) {
-        toast.error('Por favor ingresa tu nombre');
+        toast.error('Please enter your name');
       }
       if (!formData.email) {
-        toast.error('Por favor ingresa tu correo electrónico');
+        toast.error('Please enter your email');
       }
       if (!formData.messageType) {
-        toast.error('Por favor selecciona el tipo de mensaje');
+        toast.error('Please select the type of message');
       }
       if (!formData.message) {
-        toast.error('Por favor ingresa tu mensaje');
+        toast.error('Please enter your message');
       }
     }
   };
@@ -63,7 +64,7 @@ const ContactForm = () => {
 
   return (
     <div className="register-container w-full h-screen flex flex-col md:flex-row">
-      <div className="w-full md:w-2/3 flex flex-col items-center justify-center p-8">
+      <div className="w-full md:w-2/3 flex flex-col items-center justify-center p-8 md:pt-44">
         <h1 className="text-3xl font-bold mb-1 pt-5">Contact Us</h1>
         <form className="bg-white shadow-2xl rounded px-8 mb-4 pb-4" onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -133,21 +134,20 @@ const ContactForm = () => {
           </div>
         </form>
       </div>
-      <div className="contact-info w-full md:w-1/2 shadow-md p-6 rounded bg-white px-8 pb-4 m-4" style={{ position: 'relative', zIndex: 1 }}>
+      <div className="contact-info w-full md:w-1/2 shadow-md p-6 rounded bg-white px-8 pb-4 m-4 sm:p-44" style={{ position: 'relative', zIndex: 1 }}>
         <div className="video-background" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
           <video autoPlay loop muted style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
-            <source src="../public/videos/tea_-_72761 (1080p).mp4" />
-            Tu navegador no soporta videos HTML5.
+            <source src="../public/videos/matevideo1.mp4" />
           </video>
         </div>
         <animated.h1 
         style={missionAnimation} className="text-3xl font-bold mb-4"style={{ position: 'relative', zIndex: 2 }}> Our Mission</animated.h1>
         <animated.p style={missionAnimation} className="text-white-700" style={{ position: 'relative', zIndex: 2 }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non feugiat urna. Vestibulum dapibus justo nec orci tristique, vel eleifend elit feugiat.
+        At Materia Criolla, we're dedicated to sharing the tradition of mate with the world through high-quality products, fostering community, and promoting well-being.
         </animated.p>
         <animated.h1 style={visionAnimation} className="text-3xl font-bold mt-6 mb-4" style={{ position: 'relative', zIndex: 2 }}>Our Vision</animated.h1>
         <animated.p style={visionAnimation} className="text-white-700" style={{ position: 'relative', zIndex: 2 }}>
-          Proin in tellus nec ipsum venenatis fermentum. Nullam a diam ac erat ullamcorper scelerisque eu ac odio.
+        Our vision at Materia Criolla is to be the global symbol of quality mate experiences, uniting people in camaraderie and wellness worldwide.
         </animated.p>
         <animated.h1 style={valuesAnimation} className="text-3xl font-bold mt-6 mb-4" style={{ position: 'relative', zIndex: 2 }}>Our Values</animated.h1>
         <animated.ul style={valuesAnimation} className="list-disc list-inside text-white-700" style={{ position: 'relative', zIndex: 2 }}>
@@ -157,8 +157,6 @@ const ContactForm = () => {
           <li>Customer-Centric</li>
         </animated.ul>
       </div>
-
-
       <ToastContainer
         position="top-center"
         autoClose={5000}
