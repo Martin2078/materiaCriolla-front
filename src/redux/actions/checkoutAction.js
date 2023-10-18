@@ -24,9 +24,8 @@ const addCheckout = createAsyncThunk('addCheckout', async (data) => {
 })
 
 const deleteCheckout = createAsyncThunk('deleteCheckout', async (data) => {
-    let userStorage=JSON.parse(localStorage.getItem('user'))
     try {
-        const response = await axios.delete(`http://localhost:8080/checkout/${userStorage._id}`,data,headers())
+        const response = await axios.delete(`http://localhost:8080/checkout/${data}`,headers())
         localStorage.removeItem('user')
         localStorage.setItem('user', JSON.stringify(response.data.response.user))
         return {

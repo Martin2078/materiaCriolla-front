@@ -100,16 +100,18 @@ const Products = () => {
         </div>
       </div>
       <div style={cardContainerStyle}>
-        {filteredProducts.map((product) => (
-          <div className="justify-center items-center text-center" key={product._id} style={cardStyle}>
+        {filteredProducts.map((product) =>{ 
+        while (product.quantity>0) {
+          return (<div className="justify-center items-center text-center" key={product._id} style={cardStyle}>
             <img onClick={() => {
               setDetail(product);
               setChange(true);
             }} src={product.product_photo} alt="" style={imageStyle} />
             <h2 className='text-white text-2xl font-bold lg:w-full min-[320px]:w-5/6'>{product.name}</h2>
             
-          </div>
-        ))}
+          </div>)
+        }}
+        )}
       </div>
     </div>
   );

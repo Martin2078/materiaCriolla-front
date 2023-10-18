@@ -33,10 +33,7 @@ const Details = ({ detail, change, setChange }) => {
     })
   }
   async function deleteProduct() {
-    let productInfo = {
-      _id: detail._id
-    }
-    dispatch(deleteCheckout(productInfo))
+    dispatch(deleteCheckout(detail._id))
     .then(res=>{
       if (res.payload.user) {
         toast.success(res.payload.message)
@@ -84,9 +81,9 @@ const Details = ({ detail, change, setChange }) => {
       finded = user.checkout.map(product => product.product_id).find(product=>product._id===detail._id)
       if (finded) {
         setAdded(true)
-      }else{
-        setAdded(false)
       }
+    }else{
+      setAdded(false)
     }
 
 
@@ -94,7 +91,7 @@ const Details = ({ detail, change, setChange }) => {
 
   return (
     <div key={detail._id} className='fixed top-0 left-0 w-screen h-screen py-4 md:py-0 px-4 lg:px-0 bg-[#999] bg-opacity-50 flex justify-center items-center z-10'>
-      <Toaster position='top-center'/>
+      <Toaster position='top-center' toastOptions={{success:{duration:1000}}}/>
       <div className='w-full h-full xl:w-8/12 lg:w-10/12 md:h-4/6 bg-white pt-10 md: md:py-10 px-5 flex flex-col md:flex-row relative rounded-lg'>
         <img onClick={() => setChange(!change)} className='w-10 h-10 cursor-pointer absolute top-1 right-1 md:top-2 md:right-2' src={close} alt="" />
         <div className='w-full relative md:w-1/2 md:h-full h-1/2 flex flex-col items-center border rounded-lg justify-between'>
