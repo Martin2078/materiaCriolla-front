@@ -8,6 +8,7 @@ import Register from '../pages/Register'
 import Checkout from '../pages/Checkout'
 import Products from '../pages/Productos'
 import AboutUs from '../pages/AboutUs'
+import Admin from '../pages/AdminPanel'
 
 
 
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             {
                 path: "/AboutUs",
                 element: <AboutUs/>, 
+            },
+            {
+                path: "/admin",
+                element: <Admin/>, 
             }
         ],
     },

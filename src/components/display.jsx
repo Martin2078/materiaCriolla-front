@@ -11,6 +11,7 @@ import close from '/images/close.png?url'
 import logIn from '/images/signIn.png'
 import register from '/images/register.png?url'
 import logo from '/images/logo.png'
+import edit from "/images/edit.png"
 import { useSelector,useDispatch } from 'react-redux'
 import signOut from '../redux/actions/signOutAction.js'
 
@@ -20,6 +21,7 @@ const display = ({ open, setOpen }) => {
     async function closeAccount() {
         dispatch(signOut(token))
     }
+   
     return (
 
         <div className={`relative ${open ? "lg:w-3/12" : "lg:w-1/12"} lg:h-screen flex flex-col items-center justify-between lg:pt-20 lg:pb-10 min-[320px]:py-5 border-b lg:border-r lg:border-b-0 border-black min-[320px]:gap-5`}>
@@ -80,6 +82,11 @@ const display = ({ open, setOpen }) => {
                     <Link onClick={()=>closeAccount()} to={'/'} className='flex gap-4 justify-start'><img className='w-6 h-6 ' src={LogOut} alt="" />
                         {open && "Log Out"}</Link>
                     </li>
+                    {user.role ==1? <li className={`${open&&"min-[320px]:w-5/12"}`}>
+                    <Link to={'/admin'} className='flex gap-4 justify-start'><img className='w-6 h-6 ' src={edit} alt="" />
+                        {open && "Admin panel"}</Link>
+                    </li>: null}
+                    
                     </>
                 }
             </ul>
