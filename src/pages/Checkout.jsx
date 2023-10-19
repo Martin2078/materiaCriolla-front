@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import NotAllow from '../components/NotAllow';
 import { useSelector, useDispatch } from 'react-redux';
-import moto from '../../public/images/moto.png'
-import devolver from '../../public/images/devolver.png'
-import mediosPagos from '../../public/images/donacion.png'
-import delate from '../../public/images/borrar.png'
+import moto from '/images/moto.png'
+import devolver from '/images/devolver.png'
+import mediosPagos from '/images/donacion.png'
+import delate from '/images/borrar.png'
 import login from '../redux/actions/singInAction';
 import checkoutActions from '../redux/actions/checkoutAction';
 import {toast,Toaster} from 'react-hot-toast'
@@ -12,7 +12,8 @@ import {Link} from 'react-router-dom'
 const { addCheckout, deleteCheckout, updateCheckout } = checkoutActions
 
 const Checkout = () => {
-  const { user, token } = useSelector((store) => store.profile);
+  const { user, token } = useSelector((store) => store.profile)
+  console.log(user)
   const dispatch = useDispatch()
 
   async function deleteProduct(id) {
@@ -135,7 +136,7 @@ const Checkout = () => {
               <div className="w-full h-full py-24 text-center flex flex-col items-center gap-5">
                 <p className="uppercase text-3xl">Your cart is empty</p>
                 <img className='w-6/12 h-5/6 rounded-xl object-cover object-center' src="https://assets.goal.com/v3/assets/bltcc7a7ffd2fbf71f5/blt82791d141ef3edb0/615f6c62f0cc0276fbb25878/8bf04d92e36e127032e31f24bdcf2a52a165a925.jpg?auto=webp&format=pjpg&width=3840&quality=60" alt="" />
-                <Link to={'/Products'} className='w-4/12 h-fit py-2 rounded-lg bg-[url("../../public/images/madera.png")]'>
+                <Link to={'/Products'} className='w-4/12 h-fit py-2 rounded-lg bg-[url("/images/madera.png")]'>
                   <p className='text-white text-2xl'>
                   Add products!
                   </p></Link>
@@ -146,7 +147,7 @@ const Checkout = () => {
         </div>
 
         {user?.checkout.length>0&&<div className='w-full h-auto flex justify-center'>
-          <button className='w-4/12 rounded-lg h-12 bg-[url("../../public/images/madera.png")]'><p className='text-white text-xl font-bold'>Buy Now</p></button>
+          <button className='w-4/12 rounded-lg h-12 bg-[url("/images/madera.png")]'><p className='text-white text-xl font-bold'>Buy Now</p></button>
         </div>}
       </div>
       :
