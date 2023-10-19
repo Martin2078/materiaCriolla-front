@@ -90,17 +90,17 @@ const Checkout = () => {
             </div>
           </div>
 
-          <div className='w-full h-[65vh] overflow-y-auto flex flex-col gap-5 '>
+          <div className='w-full h-[65vh] overflow-y-auto flex flex-col items-center gap-5 '>
             {user?.checkout.length>0 ?
               user.checkout.map(product => {
                 while (product.product_id.quantity > 0) {
                   return (
-                    <div className="flex rounded-xl items-center justify-between px-10 h-24 border border-black">
+                    <div className="w-10/12 flex rounded-xl items-center justify-between px-10 h-[8vh] border border-black">
                       <div className="h-full w-2/12 flex items-center">
                         <img
                           src={product.product_id.product_photo}
                           alt="Product"
-                          className="w-16 h-16"
+                          className="w-16 h-16 object-contain"
                         />
                       </div>
                       <div className="container-infochk-mobile flex items-center w-4/12">

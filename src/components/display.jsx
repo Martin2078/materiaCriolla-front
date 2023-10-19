@@ -78,14 +78,15 @@ const display = ({ open, setOpen }) => {
                         <img className='w-6 h-6 rounded-full' src={token?user?.photo:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} alt="" />
                         {open && "Profile"}
                     </Link></li>
-                    <li className={`${open&&"min-[320px]:w-5/12"}`}>
-                    <Link onClick={()=>closeAccount()} to={'/'} className='flex gap-4 justify-start'><img className='w-6 h-6 ' src={LogOut} alt="" />
-                        {open && "Log Out"}</Link>
-                    </li>
                     {user.role ==1? <li className={`${open&&"min-[320px]:w-5/12"}`}>
                     <Link to={'/admin'} className='flex gap-4 justify-start'><img className='w-6 h-6 ' src={edit} alt="" />
                         {open && "Admin panel"}</Link>
                     </li>: null}
+                    <li className={`${open&&"min-[320px]:w-5/12"}`}>
+                    <Link onClick={()=>closeAccount()} to={'/'} className='flex gap-4 justify-start'><img className='w-6 h-6 ' src={LogOut} alt="" />
+                        {open && "Log Out"}</Link>
+                    </li>
+                    
                     
                     </>
                 }
