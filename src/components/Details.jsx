@@ -65,9 +65,9 @@ const Details = ({ detail, change, setChange }) => {
     let template = []
     for (let i = 1; i <= detail.quantity; i++) {
       if (i == 1) {
-        template.push(<option value="1">1 unidad</option>)
+        template.push(<option value="1">1 unit</option>)
       } else {
-        template.push(<option value={i}>{i} unidades</option>)
+        template.push(<option value={i}>{i} units</option>)
       }
     }
     return template
@@ -103,10 +103,6 @@ const Details = ({ detail, change, setChange }) => {
                     <img key={index} className='w-10 h-10' src={photo} alt="" />
                   </div>)
               })}
-            </div>
-            <div className='relative hover:scale-110'>
-              <img onClick={() => addPhoto()} className='h-8 w-8 cursor-pointer' src={añadir} alt="" />
-              <input onChange={(e) => addPhoto(e)} className='w-8 h-8 absolute top-0 opacity-0' type="file" />
             </div>
           </div>
           <img className='w-full max-h-64 object-contain rounded-lg' src={actualPhoto} alt="" />
