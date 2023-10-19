@@ -52,10 +52,7 @@ const Products = () => {
 
   };
 
-  const cardContainerStyle = {
-    display: 'flex',
-    flexWrap: 'wrap',
-  };
+  
 
   const filterInputStyle = {
 
@@ -102,7 +99,7 @@ const Products = () => {
           ))}
         </div>
       </div>
-      <div className=" justify-center " style={cardContainerStyle}>
+      <div className=" justify-center overflow-y-scroll flex flex-wrap h-4/6 ">
         {filteredProducts.map((product) => {
           while (product.quantity > 0) {
             return (<div className=" w-44 h-64 m-2 mt-20  justify-center items-center " key={product._id} style={cardStyle}>
