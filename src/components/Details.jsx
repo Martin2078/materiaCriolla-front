@@ -41,9 +41,9 @@ const Details = ({ detail, change, setChange }) => {
     })
   }
 
-  const handlePayment = async (title, price, quantity) => {
+  const handlePayment = async (product) => {
     try {
-      const response = await dispatch(paymentAction({ title, price, quantity }))
+      const response = await dispatch(paymentAction(product))
       console.log(response)
       if (response.payload.operation_type && response.payload.operation_type === 'regular_payment') {
         window.location.href = response.payload.init_point
@@ -151,7 +151,7 @@ const Details = ({ detail, change, setChange }) => {
           </div>
           <div className='flex w-5/6 h-10 gap-5'>
             <button
-              onClick={() => handlePayment(name, price, quantity)}
+              onClick={() => handlePayment([{product_id: {name: name, price: price}, quantity: quantity}])}
               className="w-9/12 rounded-lg text-white text-xl bg-[url('/images/madera.png')]"
             >
               Buy
