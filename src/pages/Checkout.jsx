@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import NotAllow from '../components/NotAllow';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react'
+import NotAllow from '../components/NotAllow'
+import { useSelector, useDispatch } from 'react-redux'
+import paymentAction from '../redux/actions/paymentAction'
 import moto from '/images/moto.png'
 import devolver from '/images/devolver.png'
 import mediosPagos from '/images/donacion.png'
 import delate from '/images/borrar.png'
-import login from '../redux/actions/singInAction';
-import checkoutActions from '../redux/actions/checkoutAction';
+import login from '../redux/actions/singInAction'
+import checkoutActions from '../redux/actions/checkoutAction'
 import {toast,Toaster} from 'react-hot-toast'
 import {Link} from 'react-router-dom'
-const { addCheckout, deleteCheckout, updateCheckout } = checkoutActions
+const { deleteCheckout, updateCheckout } = checkoutActions
 
 const Checkout = () => {
   const { user, token } = useSelector((store) => store.profile)
-  console.log(user)
+  console.log(user.checkout)
   const dispatch = useDispatch()
 
   async function deleteProduct(id) {
@@ -53,6 +54,18 @@ const Checkout = () => {
       }
     }
   }, [token, user])
+
+  const handlePayment = async (products) => {
+    try {
+      const response = await dispatch(paymentAction(products))
+      console.log(response)
+      if (response.payload.operation_type && response.payload.operation_type === 'regular_payment') {
+        window.location.href = response.payload.init_point
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <>
@@ -147,7 +160,11 @@ const Checkout = () => {
         </div>
 
         {user?.checkout.length>0&&<div className='w-full h-auto flex justify-center'>
-          <button className='w-4/12 rounded-lg h-12 bg-[url("/images/madera.png")]'><p className='text-white text-xl font-bold'>Buy Now</p></button>
+          <button
+          className='w-4/12 rounded-lg h-12 bg-[url("/images/madera.png")]'
+          onClick={() => handlePayment(user.checkout)}
+          >
+            <p className='text-white text-xl font-bold'>Buy Now</p></button>
         </div>}
       </div>
       :
