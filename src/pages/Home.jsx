@@ -59,33 +59,33 @@ const MyCarousel = () => {
         </div>
         <div className="h-[35%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <div className="bg-white flex flex-col p-4 shadow-md rounded-md">
-            <img className='h-[20vh] self-center' src={products[0]?.product_photo} alt="" />
-            <h3 className="text-lg font-semibold mb-2">{products[0]?.name}</h3>
-            <p>{products[0]?.description}</p>
+            <img className='h-[16vh] self-center' src={products[0]?.product_photo} alt="" />
+            <h3 className="text-lg font-semibold h-14">{products[0]?.name}</h3>
+            <p className='overflow-y-auto h-24 w-12/12'>{products[0]?.description}</p>
             <button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
               Buy
             </button>
           </div>
           <div className="bg-white flex flex-col p-4 shadow-md rounded-md">
-            <img className='h-[20vh] self-center' src={products[1]?.product_photo} alt="" />
-            <h3 className="text-lg font-semibold mb-2">{products[1]?.name}</h3>
-            <p>{products[1]?.description}</p>
+            <img className='h-[16vh] self-center' src={products[1]?.product_photo} alt="" />
+            <h3 className="text-lg font-semibold h-14">{products[1]?.name}</h3>
+            <p className='overflow-y-auto h-24 w-12/12'>{products[1]?.description}</p>
             <button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
               Buy
             </button>
           </div>
           <div className="bg-white flex flex-col p-4 shadow-md rounded-md">
-            <img className='h-[20vh] self-center' src={products[2]?.product_photo} alt="" />
-            <h3 className="text-lg font-semibold mb-2">{products[2]?.name}</h3>
-            <p>{products[2]?.description}</p>
+            <img className='h-[16vh] self-center' src={products[2]?.product_photo} alt="" />
+            <h3 className="text-lg font-semibold h-14">{products[2]?.name}</h3>
+            <p className='overflow-y-auto h-24 w-12/12'>{products[2]?.description}</p>
             <button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
               Buy
             </button>
           </div>
         </div>
       </div>
-      <div className="w-1/4 bg-gray-200">
-        <img className='h-[100vh]' src="/images/tradicion.jpg" alt="" />
+      <div className="w-1/4 h-[100vh] flex items-center">
+        <img className='h-[90vh] rounded-sm' src="/images/tradicion.jpg" alt="" />
       </div>
     </div>
   );

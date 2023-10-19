@@ -81,9 +81,9 @@ const Details = ({ detail, change, setChange }) => {
       finded = user.checkout.map(product => product.product_id).find(product=>product._id===detail._id)
       if (finded) {
         setAdded(true)
+      }else{
+        setAdded(false)
       }
-    }else{
-      setAdded(false)
     }
 
 
