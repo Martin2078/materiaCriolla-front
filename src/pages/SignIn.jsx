@@ -99,7 +99,10 @@ function SignIn() {
         </form>
       </div>
       <div className="w-full md:w-1/2 shadow-md p-6 rounded bg-white px-8 pb-4 m-4">
-        <img src={imagenmate} alt="Login" className="w-full h-full object-cover hidden md:block" />
+        <img
+          src={imagenmate}
+          alt="Login"
+          className="w-full h-full object-cover hidden md:block" />
       </div>
 
       <Toaster

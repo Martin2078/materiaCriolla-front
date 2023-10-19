@@ -1,16 +1,13 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable react/jsx-no-duplicate-props */
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useSpring, animated } from 'react-spring';
 import '../AboutUs.css'
-import { useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import login from '../redux/actions/singInAction';
 
 const ContactForm = () => {
-  const dispatch=useDispatch()
-  const {user,token}=useSelector((store)=>store.profile)
+  const dispatch = useDispatch()
+  const { user, token } = useSelector((store) => store.profile)
 
   const [formData, setFormData] = useState({
     name: '',
@@ -52,22 +49,7 @@ const ContactForm = () => {
     }
   };
 
-  const missionAnimation = useSpring({
-    opacity: 1,
-    from: { opacity: 1 },
-  });
-
-  const visionAnimation = useSpring({
-    opacity: 1,
-    from: { opacity: 1 },
-  });
-
-  const valuesAnimation = useSpring({
-    opacity: 1,
-    from: { opacity: 1 },
-  });
-
-  useEffect(()=>{
+  useEffect(() => {
     if (!token || !token.length) {
       if (localStorage.length > 0) {
         const tokenStorage = localStorage.getItem('token')
@@ -76,7 +58,7 @@ const ContactForm = () => {
         dispatch(login(data2))
       }
     }
-  },[token])
+  }, [token])
 
   return (
     <div className="register-container w-full h-screen flex flex-col md:flex-row">
@@ -156,22 +138,26 @@ const ContactForm = () => {
             <source src="../public/videos/matevideo1.mp4" />
           </video>
         </div>
-        <animated.h1 
-        style={missionAnimation} className="text-3xl font-bold mb-4" style={{ position: 'relative', zIndex: 2 }}> Our Mission</animated.h1>
-        <animated.p style={missionAnimation} className="text-white-700" style={{ position: 'relative', zIndex: 2 }}>
-        At Materia Criolla, we're dedicated to sharing the tradition of mate with the world through high-quality products, fostering community, and promoting well-being.
-        </animated.p>
-        <animated.h1 style={visionAnimation} className="text-3xl font-bold mt-6 mb-4" style={{ position: 'relative', zIndex: 2 }}>Our Vision</animated.h1>
-        <animated.p style={visionAnimation} className="text-white-700" style={{ position: 'relative', zIndex: 2 }}>
-        Our vision at Materia Criolla is to be the global symbol of quality mate experiences, uniting people in camaraderie and wellness worldwide.
-        </animated.p>
-        <animated.h1 style={valuesAnimation} className="text-3xl font-bold mt-6 mb-4" style={{ position: 'relative', zIndex: 2 }}>Our Values</animated.h1>
-        <animated.ul style={valuesAnimation} className="list-disc list-inside text-white-700" style={{ position: 'relative', zIndex: 2 }}>
-          <li>Integrity</li>
-          <li>Innovation</li>
-          <li>Teamwork</li>
-          <li>Customer-Centric</li>
-        </animated.ul>
+        <div className='contact-info'>     
+        <h1
+          className=" text-white font-bold mb-4 " style={{ position: 'relative', zIndex: 2 }}> Our Mission</h1>
+        <p className="text-white" style={{ position: 'relative', zIndex: 2 }}>
+          At Materia Criolla, we're dedicated to sharing the tradition of mate with the world through high-quality products, fostering community, and promoting well-being.
+        </p>
+        
+        <h1 className=" text-white font-bold mt-6 mb-4" style={{ position: 'relative', zIndex: 2 }}>Our Vision</h1>
+        <p className="text-white" style={{ position: 'relative', zIndex: 2 }}>
+          Our vision at Materia Criolla is to be the global symbol of quality mate experiences, uniting people in camaraderie and wellness worldwide.
+        </p>
+        <h1 className=" text-white font-bold mt-6 mb-4" style={{ position: 'relative', zIndex: 2 }}>Our Values</h1>
+        <ul className="list-disc list-inside text-white" style={{ position: 'relative', zIndex: 2 }}>
+          <li >Integrity</li>
+          <li >Innovation</li>
+          <li >Teamwork</li>
+          <li >Passion</li>
+        </ul>
+        
+        </div>
       </div>
       <ToastContainer
         position="top-center"

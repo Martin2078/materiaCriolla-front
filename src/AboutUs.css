@@ -1,17 +1,13 @@
-
 .contact-info {
-    background-size: cover;
-    background-position: center;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    
-  }
-  
-  .contact-info h1 {
-    font-size: 2rem;
-  }
-  
-  .contact-info p {
-    font-size: 1.5rem;
-  }
+  padding-top: 5rem;
+  padding: .5rem;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1{
+  font-size: 1.2rem;
+}

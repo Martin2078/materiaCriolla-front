@@ -39,17 +39,17 @@ const Products = () => {
   const filteredProducts = filterByCategory(filteredProductsByName, arrayChecked);
 
   const cardStyle = {
-    backgroundImage: 'url("/images/madera.png")',
-    backgroundSize: 'cover',
+
+
     border: '1px solid #000',
     padding: '16px',
-    margin: '8px',
+
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+
     borderRadius: '10px',
     maxWidth: '300px',
-    flex: '1',
+
   };
 
   const cardContainerStyle = {
@@ -58,7 +58,7 @@ const Products = () => {
   };
 
   const filterInputStyle = {
-    flex: 1,
+
     height: '40px',
     fontSize: '16px',
     padding: '8px',
@@ -78,39 +78,60 @@ const Products = () => {
   };
 
   const imageStyle = {
-    width: '100%',
-    height: '200px', 
+    width: '6rem',
+    height: '6rem',
     objectFit: 'contain',
-  };
 
+
+  };
   return (
     <div className='h-full w-full flex flex-col items-center'>
       {change && <Details detail={detail} change={change} setChange={setChange} />}
-      <div className='lg:w-3/6 min-[320px]:w-5/6 bg-white flex items-center lg:rounded-lg lg:px-4 lg:py-1 gap-2 min-[320px]:rounded-full min-[320px]:py-2 min-[320px]:px-2'>
-        <div style={{ flex: 1 }}>
+      <div className='w-full bg-white flex flex-col items-center lg:rounded-lg lg:px-4 lg:py-1 gap-2 min-[320px]:rounded-full min-[320px]:py-2 min-[320px]:px-2'>
+        <div className="flex w-full justify-between px-5 pt-4">
+          <p className=" font-bold  text-xl sm:text-3xl">products</p>
           <input id='search' type="search" style={filterInputStyle} placeholder='Find Your Product Here' value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} />
         </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div className="flex w-full bg-slate-200 rounded-xl gap-5 flex-wrap m-5 px-14 justify-around">
           {categories.map((category) => (
-            <div key={category._id}>
-              <input type="checkbox" id={category._id} value={category.name} onChange={handleCheckboxChange} style={checkboxStyle} />
+            <div className="p-3 flex flex-col justify-start items-center gap-3" key={category._id}>
               <label htmlFor={category._id}>{category.name}</label>
+              <input type="checkbox" id={category._id} value={category.name} onChange={handleCheckboxChange} style={checkboxStyle} />
+
             </div>
           ))}
         </div>
       </div>
-      <div style={cardContainerStyle}>
-        {filteredProducts.map((product) =>{ 
-        while (product.quantity>0) {
-          return (<div className="justify-center items-center text-center" key={product._id} style={cardStyle}>
-            <img onClick={() => {
-              setDetail(product);
-              setChange(true);
-            }} src={product.product_photo} alt="" style={imageStyle} />
-            <h2 className='text-white text-2xl font-bold lg:w-full min-[320px]:w-5/6'>{product.name}</h2>
-            
-          </div>)
-        }}
+      <div className=" justify-center " style={cardContainerStyle}>
+        {filteredProducts.map((product) => {
+          while (product.quantity > 0) {
+            return (<div className=" w-44 h-64 m-2 mt-20  justify-center items-center " key={product._id} style={cardStyle}>
+
+              <div className=" ">
+                <img
+
+                  src={product.product_photo} alt="" style={imageStyle} className="bg-white -translate-y-14 border-solid border-black border-2 rounded-full " />
+              </div>
+
+              <div>
+                <h2 style={{ overflow: "hidden" }} className='text-black h-12 text-xm font-bold -translate-y-14 '>{product.name}</h2>
+                <p className="h-14 -translate-y-12 " style={{ overflow: "hidden" }}>{product.description}</p>
+                <p className="h-5 -translate-y-10">price:   ${product.price}</p>
+                <p className="font-bold -translate-y-8 ">stock:  {product.quantity}</p>
+              </div>
+
+              <button
+                onClick={() => {
+                  setDetail(product);
+                  setChange(true);
+                }}
+                className="w-full font-blond -translate-y-4 rounded-lg text-white text-xm bg-[url('/images/madera.png')]"
+              >
+                Details
+              </button>
+            </div>)
+          }
+        }
         )}
       </div>
     </div>

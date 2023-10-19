@@ -1,5 +1,4 @@
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import Details from '../components/Details';
 import products from "../redux/actions/productosAction";
@@ -7,6 +6,9 @@ import axios from "axios";
 import edit from "../../public/images/edit.png"
 import borrar from "../../public/images/borrar.png"
 import EditProduct from "./EditProduct";
+import añadir from "../../public/images/añadir.png"
+import CreateProducto from "../components/createProducto";
+import {toast,Toaster} from 'react-hot-toast'
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -17,23 +19,62 @@ const Admin = () => {
   const [producto,setProducto] =useState({})
   const [productoModificado, setProductoModificado]= useState({})
   const[productoBorrado, setProductoBorrado]= useState({})
+  const[searchv,setSearchv]=useState("")
+  const[productosFiltrados,setProductosFiltrados]=useState(productos)
+  const[show,setShow]=useState(false)
+  const[categorias, setCategorias] = useState([])
+  const [next, setNext] = useState()
+  const [prev, setPrev] = useState()
+  const [page, setPage] = useState(1)
+  const [maxPages, setMaxPages] = useState()
+
+  const search = useRef();
   useEffect(() => {
     getProducts()
-  }, [productoModificado, productoBorrado])
+    getCategory()
+  }, [productoModificado, page])
   
+
+
+
+  const getCategory = async () => {
+    await axios("http://localhost:8080/categorys")
+      .then((res) => {
+        setCategorias(res.data.response)
+      })
+      .catch((err) => console.log(err));
+  }
+
   const getProducts = async () => {
     const id= user._id
-    await axios(`http://localhost:8080/productos/userproducts/${id}`)
+    await axios(`http://localhost:8080/productos/userproducts/${id}?page=${page}&category=${categorias.join(",")}`)
       .then((res) => {
         setProductos(res.data.response)
-        
+        setProductosFiltrados(res.data.response)
+        setNext(res.data.pages.next)
+      setPrev(res.data.pages.prev)
+      setMaxPages(res.data.pages.maxPages)
+      console.log("pagina: ", res.data)
 
       })
       .catch((err) => console.log(err));
 
   }
-  console.log(user._id)
 
+  function pagination(start, max) {
+    let template = []
+    for (let i = start; i < max; i++) {
+      template.push(<button className={`${page == i ? "text-blue-700 font-bold" : ""}`} onClick={() => setPage(i)}>{i}...</button>)
+    }
+    template.push(<button className={`${page == max ? "text-blue-700 font-bold" : ""}`} onClick={() => setPage(max)}>{max}...</button>)
+    return template
+  }
+  console.log(user._id)
+  const handleSearch = (e) => {
+    console.log(e.target.value)
+    
+    filter(e.target.value)
+  }
 
 const modificarProducto =async(producto)=>{
     await axios.put(`http://localhost:8080/productos/userproducts`, producto)
@@ -46,6 +87,39 @@ const modificarProducto =async(producto)=>{
     )
     
 }
+
+const filter =(data)=>{
+
+    if(data.length>0){
+    let filtrados = productos.filter(produ=>produ.name.toLowerCase().includes(data.toLowerCase()))
+    setProductosFiltrados(filtrados)
+    console.log(filtrados)
+
+    }else{
+        setProductosFiltrados(productos)
+    }
+}
+
+const handleCreate= async (producto)=>{
+
+    await axios.post(`http://localhost:8080/productos/createproduct`, producto)
+    .then((res) => {
+        setProductoModificado(res.data.response)
+        
+        if(res.data.success){
+          toast.success("A product has beed created succesfully")
+          
+        }else{
+          toast.error("Error creating product: "+ res.data.message)
+        }
+      })
+
+
+}
+
+const showCreate = ()=>{
+    setShow(true)
+}
  
 
   const handleEditProduct = (data)=>{
@@ -57,7 +131,7 @@ const modificarProducto =async(producto)=>{
   const handleDelete =async (data)=>{
     await axios.delete(`http://localhost:8080/productos/userproducts/delete/${data}`)
     .then((res) => {
-        setProductoBorrado(res.data.response)
+        setProductoModificado(res.data.response)
         
         getProducts()
       })
@@ -65,17 +139,17 @@ const modificarProducto =async(producto)=>{
   }
 
   const cardStyle = {
-    backgroundImage: 'url("/images/madera.png")',
-    backgroundSize: 'cover',
+    
+    
     border: '1px solid #000',
     padding: '16px',
-    margin: '8px',
+    
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    
     borderRadius: '10px',
     maxWidth: '300px',
-    flex: '1',
+    
   };
 
   const cardContainerStyle = {
@@ -104,26 +178,44 @@ const modificarProducto =async(producto)=>{
   };
 
   const imageStyle = {
-    width: '100%',
-    height: '200px', 
+    width: '6rem',
+    height: '6rem', 
     objectFit: 'contain',
+   
+    
   };
 
   return (
     
     <div className='h-full w-full flex flex-col items-center'>
-        <h1 className="text-2xl mb-6 mt-6">My products</h1>
-      {change && <EditProduct modificarProducto={modificarProducto} producto={producto} change={change} setChange={setChange} setProductoModificado={setProductoModificado} />}
+      <Toaster position='top-center' toastOptions={{success:{duration:2000},error:{duration:2000}} }/>
+      <div className="flex  justify-between w-full p-4">
+        <h1 className="text-3xl font-bold mb-6 mt-6">My products</h1>
+        <input type="search"  onChange={(e) => { handleSearch(e); setPage(1)} }  ref={search}  className=" w-1/2 block  rounded-md border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 text-xs placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-2xl sm:leading-6 sm:h-16" placeholder="search your Product" />
+        </div>
+        <div className="flex h-16 w-full mb-4 items pt-3 gap-5 justify-center text-center bg-slate-300">
+          <p className="text-2xl ">Create a new product</p>
+<img src={añadir} onClick={()=>{showCreate()} } className="w-10 h-10" alt="" />
+        </div>
+      {change && <EditProduct modificarProducto={modificarProducto} producto={producto} change={change} setChange={setChange}  />}
+      {show? <CreateProducto show={show} setShow={setShow} user={user} categorias={categorias} handleCreate= {handleCreate} /> :null}
       
-      <div style={cardContainerStyle}>
-        {productos.map((product) => (
+      <div style={cardContainerStyle} className="justify-center h-screen">
+        {productosFiltrados.map((product) => (
             <>
-          <div className="justify-center items-center text-center" key={product._id} style={cardStyle}>
+          <div className=" w-44  m-2 mt-16 justify-center  items-center" key={product._id} style={cardStyle}>
+            <div className=" ">
             <img 
-             src={product.product_photo} alt="" style={imageStyle} />
-            <h2 className='text-white text-2xl font-bold lg:w-full min-[320px]:w-5/6'>{product.name}</h2>
-            <div className="flex justify-between w-full">
-            <button onClick={()=>handleEditProduct(product)}><img  src= {edit} className="w-7" /> </button>
+            
+             src={product.product_photo} alt="" style={imageStyle} className="bg-white -translate-y-16 border-solid border-black border-2 rounded-full " />
+            </div>
+            <div className="">
+            <h2 style={{overflow:"auto"}} className='text-black text-xl font-bold w-full h-14 mb-6 -translate-y-12'>{product.name}</h2>
+           
+            <p className=" h-16 -translate-y-10" style={{overflow:"auto"}}>{product.description}</p>
+            </div>
+            <div className="flex   justify-between w-full">
+            <button onClick={()=>handleEditProduct(product)}><img  src= {edit} className="w-7  " /> </button>
             <button onClick={()=>handleDelete(product._id)}><img  src= {borrar} className="w-7" /> </button>
             
          </div>
@@ -131,12 +223,13 @@ const modificarProducto =async(producto)=>{
           
           </>
         ))}
+     
+      
       </div>
+      
     </div>
     
   );
 }
 
 export default Admin;
-
-
