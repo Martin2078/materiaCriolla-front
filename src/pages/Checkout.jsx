@@ -14,7 +14,6 @@ const { deleteCheckout, updateCheckout } = checkoutActions
 
 const Checkout = () => {
   const { user, token } = useSelector((store) => store.profile)
-  console.log(user.checkout)
   const dispatch = useDispatch()
 
   async function deleteProduct(id) {
