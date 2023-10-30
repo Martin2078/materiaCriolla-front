@@ -99,10 +99,10 @@ const Products = () => {
           ))}
         </div>
       </div>
-      <div className=" justify-center overflow-y-scroll flex flex-wrap h-4/6 ">
+      <div className=" justify-center overflow-y-scroll flex flex-wrap h-[75vh] w-full">
         {filteredProducts.map((product) => {
           while (product.quantity > 0) {
-            return (<div className=" w-44 h-64 m-2 mt-20  justify-center items-center " key={product._id} style={cardStyle}>
+            return (<div className=" w-3/12 h-[35vh] m-2 mt-20  justify-center items-center " key={product._id} style={cardStyle}>
 
               <div className=" ">
                 <img
@@ -111,10 +111,10 @@ const Products = () => {
               </div>
 
               <div>
-                <h2 style={{ overflow: "hidden" }} className='text-black h-12 text-xm font-bold -translate-y-14 '>{product.name}</h2>
-                <p className="h-14 -translate-y-12 " style={{ overflow: "hidden" }}>{product.description}</p>
-                <p className="h-5 -translate-y-10">price:   ${product.price}</p>
-                <p className="font-bold -translate-y-8 ">stock:  {product.quantity}</p>
+                <h2 className='text-black h-12 text-xl font-bold text-center -translate-y-14 '>{product.name}</h2>
+                <p className="h-20 -translate-y-12 text-center ">{product.description.length>40? `${product.description.slice(0,65)}...`:product.description}</p>
+                <p className="h-5 -translate-y-10 font-bold text-lg">Price: ${product.price}</p>
+                <p className="font-bold -translate-y-8 ">Stock: {product.quantity}</p>
               </div>
 
               <button
@@ -122,7 +122,7 @@ const Products = () => {
                   setDetail(product);
                   setChange(true);
                 }}
-                className="w-full font-blond -translate-y-4 rounded-lg text-white text-xm bg-[url('/images/madera.png')]"
+                className="w-full py-1 font-blond -translate-y-4 rounded-lg text-white text-xm bg-[url('/images/madera.png')]"
               >
                 Details
               </button>
