@@ -1,6 +1,9 @@
 import login from '../actions/singInAction.js';
 import signOut from '../actions/signOutAction.js';
+import userChangeAction from '../actions/userChangeAction.js';
 import { createReducer } from '@reduxjs/toolkit';
+import checkoutActions from '../actions/checkoutAction.js';
+const { addCheckout,deleteCheckout,updateCheckout}=checkoutActions
 
 
 const initialState = {
@@ -14,6 +17,26 @@ const initialState = {
 
 const authReducer = createReducer(initialState, (builder) => {
     builder
+        .addCase(userChangeAction.fulfilled, (state, action) => {
+            if (action.payload.error) {
+                return state
+            }
+            let nuevoEstado = {
+                ...state,
+                user: action.payload.user,
+                message: action.payload.message,
+                loading: false
+            }
+            return nuevoEstado
+        })
+        .addCase(userChangeAction.rejected, (state, action) => {
+            let nuevoEstado = {
+                ...state,
+                error:action.payload.error,
+                loading: false
+            }
+            return nuevoEstado
+        })
         .addCase(login.fulfilled, (state, action) => {
             let nuevoEstado = {
                 ...state,
@@ -39,8 +62,35 @@ const authReducer = createReducer(initialState, (builder) => {
             }
             return nuevoEstado
         })
-        .addCase(signOut.fulfilled, (state,action) => {
+        .addCase(signOut.fulfilled, (state, action) => {
             return initialState
+        })
+        .addCase(addCheckout.fulfilled,(state,action)=>
+        {
+            let nuevoEstado={
+                ...state,
+                user:action.payload.user,
+                loading:false,
+            }
+            return nuevoEstado
+        })
+        .addCase(deleteCheckout.fulfilled,(state,action)=>
+        {
+            let nuevoEstado={
+                ...state,
+                user:action.payload.user,
+                loading:false,
+            }
+            return nuevoEstado
+        })
+        .addCase(updateCheckout.fulfilled,(state,action)=>
+        {
+            let nuevoEstado={
+                ...state,
+                user:action.payload.user,
+                loading:false,
+            }
+            return nuevoEstado
         })
 
 })

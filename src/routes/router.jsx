@@ -2,11 +2,14 @@ import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import Home from '../pages/Home'
 import Layout from '../layouts/Layout'
-import SingIn from '../pages/SingIn'
+import SignIn from '../pages/SignIn'
 import Profile from '../pages/Profile'
-import Register from '../components/Register'
+import Register from '../pages/Register'
 import Checkout from '../pages/Checkout'
-import Products from '../pages/products'
+import Products from '../pages/Productos'
+import AboutUs from '../pages/AboutUs'
+import Admin from '../pages/AdminPanel'
+
 
 
 const router = createBrowserRouter([
@@ -19,12 +22,12 @@ const router = createBrowserRouter([
                 element: <Home />,
             },
             {
-                path: "/SingIn",
-                element: <SingIn />,
+                path: "/SignIn",
+                element: <SignIn />,
             },
             {
-                path:"/Me",
-                element:<Profile/>
+                path: "/Me",
+                element: <Profile />
             },
             {
                 path: "/Register",
@@ -32,11 +35,19 @@ const router = createBrowserRouter([
             },
             {
                 path: "/Checkout",
-                element: <Checkout/>, 
+                element: <Checkout />,
             },
             {
                 path: "/Products",
                 element: <Products/>, 
+            },
+            {
+                path: "/AboutUs",
+                element: <AboutUs/>, 
+            },
+            {
+                path: "/admin",
+                element: <Admin/>, 
             }
         ],
     },
