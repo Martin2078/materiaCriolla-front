@@ -9,7 +9,8 @@ import EditProduct from "./EditProduct";
 import añadir from "../../public/images/añadir.png"
 import CreateProducto from "../components/createProducto";
 import { toast, Toaster } from 'react-hot-toast'
-
+import checkoutActions from "../redux/actions/checkoutAction";
+const deleteCheckout=checkoutActions.deleteCheckout
 const Admin = () => {
   const dispatch = useDispatch();
   const { user, token } = useSelector((store) => store.profile)
@@ -131,8 +132,8 @@ const Admin = () => {
   const handleDelete = async (data) => {
     await axios.delete(`http://localhost:8080/productos/userproducts/delete/${data}`)
       .then((res) => {
+        dispatch(deleteCheckout(data))
         setProductoModificado(res.data.response)
-
         getProducts()
       })
 
