@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import Details from '../components/Details';
+import login from "../redux/actions/singInAction";
+import productsAction from '../redux/actions/productosAction'
+import categoriesAction from '../redux/actions/categoriesAction'
 
 const Products = () => {
   const dispatch = useDispatch();
+  const {token,user}=useSelector((store)=>store.profile)
+  
   const products = useSelector((store) => store.products.products);
   const categories = useSelector((store) => store.categories.categories);
   const [change, setChange] = useState(false);
@@ -66,35 +71,43 @@ const Products = () => {
   const checkboxStyle = {
     width: '20px',
     height: '20px',
-    marginRight: '8px',
   };
 
-  const colorContainerStyle = {
-    display: 'flex',
-    gap: '8px',
-  };
 
   const imageStyle = {
     width: '6rem',
     height: '6rem',
     objectFit: 'contain',
-
-
   };
+
+  useEffect(() => {
+    if (!token || !token.length) {
+      if (localStorage.length > 0) {
+        const tokenStorage = localStorage.getItem('token')
+        const userStorage = JSON.parse(localStorage.getItem('user'))
+        const data2 = { user: userStorage, token: tokenStorage }
+        dispatch(login(data2))
+      }
+    }
+    if (products.length==0) {
+      dispatch(productsAction())
+      dispatch(categoriesAction())
+    }
+  }, [token, user])
   return (
     <div className='h-full w-full flex flex-col items-center'>
       {change && <Details detail={detail} change={change} setChange={setChange} />}
       <div className='w-full bg-white flex flex-col items-center lg:rounded-lg lg:px-4 lg:py-1 gap-2 min-[320px]:rounded-full min-[320px]:py-2 min-[320px]:px-2'>
         <div className="flex w-full justify-between px-5 pt-4">
-          <p className=" font-bold  text-xl sm:text-3xl">products</p>
-          <input id='search' type="search" style={filterInputStyle} placeholder='Find Your Product Here' value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} />
+          <p className=" font-bold  text-xl sm:text-3xl">Products</p>
+          <input id='search' type="search" style={filterInputStyle} className="outline-none"  placeholder='Find Your Product Here' value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} />
         </div>
-        <div className="flex w-full bg-slate-200 rounded-xl gap-5 flex-wrap m-5 px-14 justify-around">
+        <div className="flex w-full bg-[url('/images/madera.png')] rounded-xl gap-5 flex-wrap m-5 px-14 justify-around">
           {categories.map((category) => (
-            <div className="p-3 flex flex-col justify-start items-center gap-3" key={category._id}>
-              <label htmlFor={category._id}>{category.name}</label>
+            <div className="p-3 flex flex-col justify-start items-center gap-1" key={category._id}>
+              <label className="font-semibold text-xl text-white" htmlFor={category._id}>{category.name}</label>
               <input type="checkbox" id={category._id} value={category.name} onChange={handleCheckboxChange} style={checkboxStyle} />
-
+            
             </div>
           ))}
         </div>
