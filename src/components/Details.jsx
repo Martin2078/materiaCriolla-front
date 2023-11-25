@@ -108,12 +108,12 @@ const Details = ({ detail, change, setChange }) => {
           <img className='w-full max-h-64 object-contain rounded-lg' src={actualPhoto} alt="" />
         </div>
         <div className='w-full h-fit md:w-1/2 md:h-full flex flex-col items-center justify-between py-4 overflow-y-scroll md:overflow-hidden'>
-          <div className='w-5/6 h-fit md:h-5/6 flex flex-col gap-1 md:gap-4 lg:gap-3'>
-            <h3 className='text-3xl md:text-4xl w-full'>{detail.name}</h3>
-            <div className='flex flex-col gap-2 h-2/5'>
+          <div className={`w-5/6 h-fit md:h-5/6 flex flex-col gap-1 md:gap-4 lg:gap-2`}>
+            <h3 className={`w-full h-1/6 font-bold text-3xl md:text-4xl}`}>{detail.name}</h3>
+            <div className='flex flex-col gap-2 h-[18vh]'>
               <p className='text-xl'>Description</p>
-              <div className='w-full h-32 md:h-full border overflow-y-scroll p-1 px-2 rounded-lg'>
-                <p >{detail.description}</p>
+              <div className='w-full max-h-[14vh] md:h-full border overflow-y-auto p-1 px-2 rounded-lg'>
+                <p className='h-full' >{detail.description}</p>
               </div>
             </div>
             <p className='text-2xl'>${detail.price}</p>

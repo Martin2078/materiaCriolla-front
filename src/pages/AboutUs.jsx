@@ -61,7 +61,7 @@ const ContactForm = () => {
   }, [token])
 
   return (
-    <div className="register-container w-full h-screen flex flex-col md:flex-row">
+    <div className="register-container w-full h-screen flex flex-col md:flex-row px-5">
       <div className="w-full md:w-2/3 flex flex-col items-center justify-center p-8 md:pt-44">
         <h1 className="text-3xl font-bold mb-1 pt-5">Contact Us</h1>
         <form className="bg-white shadow-2xl rounded px-8 mb-4 pb-4" onSubmit={handleSubmit}>
@@ -138,25 +138,25 @@ const ContactForm = () => {
             <source src="../public/videos/matevideo1.mp4" />
           </video>
         </div>
-        <div className='contact-info'>     
-        <h1
-          className=" text-white font-bold mb-4 " style={{ position: 'relative', zIndex: 2 }}> Our Mission</h1>
-        <p className="text-white" style={{ position: 'relative', zIndex: 2 }}>
-          At Materia Criolla, we're dedicated to sharing the tradition of mate with the world through high-quality products, fostering community, and promoting well-being.
-        </p>
-        
-        <h1 className=" text-white font-bold mt-6 mb-4" style={{ position: 'relative', zIndex: 2 }}>Our Vision</h1>
-        <p className="text-white" style={{ position: 'relative', zIndex: 2 }}>
-          Our vision at Materia Criolla is to be the global symbol of quality mate experiences, uniting people in camaraderie and wellness worldwide.
-        </p>
-        <h1 className=" text-white font-bold mt-6 mb-4" style={{ position: 'relative', zIndex: 2 }}>Our Values</h1>
-        <ul className="list-disc list-inside text-white" style={{ position: 'relative', zIndex: 2 }}>
-          <li >Integrity</li>
-          <li >Innovation</li>
-          <li >Teamwork</li>
-          <li >Passion</li>
-        </ul>
-        
+        <div className='contact-info'>
+          <h1
+            className=" text-white font-bold mb-4 " style={{ position: 'relative', zIndex: 2 }}> Our Mission</h1>
+          <p className="text-white" style={{ position: 'relative', zIndex: 2 }}>
+            At Materia Criolla, we're dedicated to sharing the tradition of mate with the world through high-quality products, fostering community, and promoting well-being.
+          </p>
+
+          <h1 className=" text-white font-bold mt-6 mb-4" style={{ position: 'relative', zIndex: 2 }}>Our Vision</h1>
+          <p className="text-white" style={{ position: 'relative', zIndex: 2 }}>
+            Our vision at Materia Criolla is to be the global symbol of quality mate experiences, uniting people in camaraderie and wellness worldwide.
+          </p>
+          <h1 className=" text-white font-bold mt-6 mb-4" style={{ position: 'relative', zIndex: 2 }}>Our Values</h1>
+          <ul className="list-disc list-inside text-white" style={{ position: 'relative', zIndex: 2 }}>
+            <li >Integrity</li>
+            <li >Innovation</li>
+            <li >Teamwork</li>
+            <li >Passion</li>
+          </ul>
+
         </div>
       </div>
       <ToastContainer

@@ -29,31 +29,39 @@ const Profile = () => {
     setData({ ...data, photo: e.target.files[0] })
   }
   async function changeData() {
-    console.log(data);
-    let data3 = {
-      city: data.city || data.address.city,
-      country: data.country || data.address.country,
-      postalCode: data.postalCode || data.address.postalCode,
-      province: data.province || data.address.province,
-      street: data.street || data.address.street,
-      streetNumber: data.streetNumber || data.address.streetNumber,
-      name: data.name,
-      surname: data.surname,
-      birthdate: data.birthdate,
-      email: data.email
-    }
-    console.log(data3);
-    dispatch(userChangeAction(data3))
-      .then(res => {
-        console.log(res.payload);
-        if (res.payload.error) {
-          res.payload.error.message.forEach((element) => toast.error(element))
-          setRenderizar(true)
-        } else {
-          toast.success("Information updated!")
-          setRenderizar(true)
-        }
-      })
+
+    console.log(data.birthdate);
+    if (data.birthdate.slice(0,4)>2004) {
+      toast.error("User must be over 18 years old!")
+      setData({ ...user, birthdate: user.birthdate.slice(0,10).split("-").reverse().join("/") })
+    }else{
+      let data3 = {
+        city: data.city || data.address.city,
+        country: data.country || data.address.country,
+        postalCode: data.postalCode || data.address.postalCode,
+        province: data.province || data.address.province,
+        street: data.street || data.address.street,
+        streetNumber: data.streetNumber || data.address.streetNumber,
+        name: data.name,
+        surname: data.surname,
+        birthdate: data.birthdate,
+        email: data.email
+      }
+      
+      dispatch(userChangeAction(data3))
+        .then(res => {
+          if (res.payload.error) {
+            console.log(res.payload.error);
+            res.payload.error.error.forEach((element) => toast.error(element))
+            setRenderizar(true)
+          } else {
+            toast.success("Information updated!")
+            setChange(false)
+            setRenderizar(true)
+          }
+        })
+    } 
+    
   }
 
   useEffect(() => {
@@ -66,7 +74,7 @@ const Profile = () => {
         dispatch(login(data2))
       }
     } else {
-      setData({ ...user, ...user.address, birthdate: user.birthdate.slice(0, 10).replaceAll("-", "/") })
+      setData({ ...user, ...user.address, birthdate: user.birthdate.slice(0,10).split("-").reverse().join("/") })
     }
 
 
@@ -153,8 +161,8 @@ const Profile = () => {
                 </div>
                 {change ?
                   <div className='w-1/6 h-20 flex gap-2 absolute top-3 right-0'>
-                    <img onClick={() => { setData({ ...user, birthdate: user.birthdate.slice(0, 10).replaceAll("-", "/") }); setChange(false) }} className='w-7 h-7 right-10 cursor-pointer' src={remove} alt="" />
-                    <img onClick={() => { changeData(); setChange(false) }} className='w-7 h-7 cursor-pointer' src={accept} alt="" />
+                    <img onClick={() => { setData({ ...user, birthdate: user.birthdate.slice(0,10).split("-").reverse().join("/") }); setChange(false) }} className='w-7 h-7 right-10 cursor-pointer' src={remove} alt="" />
+                    <img onClick={() => { changeData();}} className='w-7 h-7 cursor-pointer' src={accept} alt="" />
                   </div>
                   :
                   <img onClick={() => { setChange(true); setData({ ...user, birthdate: user.birthdate.slice(0, 10).replaceAll("-", "/") }) }} className='w-7 h-7 absolute top-3 right-3 cursor-pointer' src={editIcon} alt="" />
