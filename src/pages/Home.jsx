@@ -29,8 +29,6 @@ const MyCarousel = () => {
       if (localStorage.length > 0) {
         const tokenStorage = localStorage.getItem('token')
         const userStorage = JSON.parse(localStorage.getItem('user'))
-        console.log(tokenStorage);
-        console.log(userStorage);
         const data = { user: userStorage, token: tokenStorage }
         dispatch(login(data))
       }

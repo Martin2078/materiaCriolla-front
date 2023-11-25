@@ -6,10 +6,11 @@ import axios from "axios";
 import edit from "../../public/images/edit.png"
 import borrar from "../../public/images/borrar.png"
 import EditProduct from "./EditProduct";
-import añadir from "../../public/images/añadir.png"
+import añadirWhite from "../../public/images/añadirWhite.png"
 import CreateProducto from "../components/createProducto";
 import { toast, Toaster } from 'react-hot-toast'
 import checkoutActions from "../redux/actions/checkoutAction";
+import login from "../redux/actions/singInAction";
 const deleteCheckout=checkoutActions.deleteCheckout
 const Admin = () => {
   const dispatch = useDispatch();
@@ -31,9 +32,18 @@ const Admin = () => {
 
   const search = useRef();
   useEffect(() => {
-    getProducts()
-    getCategory()
-  }, [productoModificado, page])
+    if (!token || !token.length) {
+      if (localStorage.length > 0) {
+        const tokenStorage = localStorage.getItem('token')
+        const userStorage = JSON.parse(localStorage.getItem('user'))
+        const data = { user: userStorage, token: tokenStorage }
+        dispatch(login(data))
+      }
+    }else{
+      getProducts()
+      getCategory()
+    }
+  }, [productoModificado, page,token])
 
 
 
@@ -70,7 +80,6 @@ const Admin = () => {
     template.push(<button className={`${page == max ? "text-blue-700 font-bold" : ""}`} onClick={() => setPage(max)}>{max}...</button>)
     return template
   }
-  console.log(user._id)
   const handleSearch = (e) => {
     console.log(e.target.value)
 
@@ -155,12 +164,13 @@ const Admin = () => {
 
 
   const filterInputStyle = {
-    flex: 1,
+
     height: '40px',
     fontSize: '16px',
     padding: '8px',
     border: '1px solid #ccc',
     borderRadius: '4px',
+    
   };
 
   const checkboxStyle = {
@@ -182,17 +192,19 @@ const Admin = () => {
 
   };
 
+
+
   return (
 
     <div className='h-full w-full flex flex-col items-center'>
       <Toaster position='top-center' toastOptions={{ success: { duration: 2000 }, error: { duration: 2000 } }} />
-      <div className="flex  justify-between w-full p-4">
+      <div className="flex w-full justify-between px-5 pt-4 items-center">
         <h1 className="text-3xl font-bold mb-6 mt-6">My products</h1>
-        <input type="search" onChange={(e) => { handleSearch(e); setPage(1) }} ref={search} className=" w-1/2 block  rounded-md border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 text-xs placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-2xl sm:leading-6 sm:h-16" placeholder="search your Product" />
+        <input type="search" onChange={(e) => { handleSearch(e); setPage(1) }} ref={search} style={filterInputStyle} className="outline-none"  placeholder="search your Product" />
       </div>
-      <div className="flex h-16 w-full mb-4 items pt-3 gap-5 justify-center text-center bg-slate-300">
-        <p className="text-2xl ">Create a new product</p>
-        <img src={añadir} onClick={() => { showCreate() }} className="w-10 h-10" alt="" />
+      <div onClick={() => { showCreate() }} className="flex cursor-pointer h-16 w-1/3 rounded-xl bg-[url('/images/madera.png')] mb-4 items pt-3 gap-5 justify-center text-center bg-slate-300">
+        <p className="text-2xl text-white font-semibold ">Create a new product</p>
+        <img src={añadirWhite} className="w-10 h-10 " alt="" />
       </div>
       {change && <EditProduct modificarProducto={modificarProducto} producto={producto} change={change} setChange={setChange} />}
       {show ? <CreateProducto show={show} setShow={setShow} user={user} categorias={categorias} handleCreate={handleCreate} /> : null}
