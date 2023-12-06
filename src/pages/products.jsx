@@ -102,7 +102,7 @@ const Products = () => {
         {filteredProducts.map((product) => {
           if (product.quantity > 0) {
             while (product.quantity > 0) {
-              return (<div className=" w-[90vw] min-[425px]:w-[80vw] md:w-[40vw] lg:w-[25vw] xl:w-[20vw] h-[35vh] md:h-[40vh] lg:h-[35vh] px-4 border border-black rounded-md flex flex-col justify-center items-center " key={product._id}>
+              return (<div className=" w-[90vw] min-[425px]:w-[80vw] md:w-[40vw] lg:w-[25vw] xl:w-[20vw] h-[35vh] md:h-[40vh] lg:h-[35vh] px-4 border border-black shadow-md shadow-[#666] rounded-md flex flex-col justify-center items-center " key={product._id}>
                 <div className="h-1/6 w-full flex items-center justify-center " >
                   <img src={product.product_photo} alt="" style={imageStyle} className="bg-white border-solid -translate-y-8 border-black border-2 rounded-full  " />
                 </div>
