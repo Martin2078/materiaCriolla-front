@@ -12,7 +12,7 @@ const addCheckout=checkoutActions.addCheckout
 const deleteCheckout=checkoutActions.deleteCheckout
 const Details = ({ detail, change, setChange }) => {
   const dispatch = useDispatch()
-  const user = useSelector(store => store.profile.user)
+  const {token, user} = useSelector(store => store.profile)
   let finded
   const [added,setAdded]=useState(false)
   const [actualPhoto, setActualPhoto] = useState(detail.product_photo[0])
@@ -21,6 +21,10 @@ const Details = ({ detail, change, setChange }) => {
   const { name, price } = detail
 
   async function addToCheckout() {
+    if (!token) {
+      toast.error('You must be logged before')
+      return
+    }
     let product_id = {
       quantity,
       _id: detail._id
@@ -44,12 +48,10 @@ const Details = ({ detail, change, setChange }) => {
   const handlePayment = async (product) => {
     try {
       const response = await dispatch(paymentAction(product))
-      console.log(response)
       if (response.payload.operation_type && response.payload.operation_type === 'regular_payment') {
         window.location.href = response.payload.init_point
       }
     } catch (error) {
-      console.log(error)
     }
   }
 
@@ -73,9 +75,7 @@ const Details = ({ detail, change, setChange }) => {
     return template
   }
 
-  function addPhoto(e) {
-    const photo = e.target.files[0]
-  }
+
   useEffect(()=>{
     if (user && user.checkout.length) {
       finded = user.checkout.map(product => product.product_id).find(product=>product._id===detail._id)
@@ -110,9 +110,9 @@ const Details = ({ detail, change, setChange }) => {
         <div className='w-full h-fit md:w-1/2 md:h-full flex flex-col items-center justify-between py-4 overflow-y-scroll md:overflow-hidden'>
           <div className={`w-5/6 h-fit md:h-5/6 flex flex-col gap-1 md:gap-4 lg:gap-2`}>
             <h3 className={`w-full h-1/6 font-bold text-3xl md:text-4xl}`}>{detail.name}</h3>
-            <div className='flex flex-col gap-2 h-[18vh]'>
+            <div className='flex flex-col gap-2 h-[25vh] lg:h-[18vh]'>
               <p className='text-xl'>Description</p>
-              <div className='w-full max-h-[14vh] md:h-full border overflow-y-auto p-1 px-2 rounded-lg'>
+              <div className='w-full max-h-full md:h-full border overflow-y-auto p-1 px-2 rounded-lg'>
                 <p className='h-full' >{detail.description}</p>
               </div>
             </div>
@@ -138,7 +138,7 @@ const Details = ({ detail, change, setChange }) => {
                 ?
                 <input className='border border-black px-1' placeholder='Quantity' type="text" defaultValue={1} onChange={(e) => setQuantity(e.target.value)} />
                 :
-                (<select onClick={(e) => { getQuantity(e); console.log(e.target.value) }} name="quantity" id="">
+                (<select onClick={(e) => { getQuantity(e)}} name="quantity" id="">
                   {detail.quantity > 4 ? <>
                     <option value="1">1 unit</option>
                     <option value="2">2 units</option>

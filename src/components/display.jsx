@@ -36,7 +36,6 @@ const display = ({ open, setOpen }) => {
     })
     const handleResize = () => {
         setScreenWidth(window.innerWidth)
-        console.log(window.innerWidth);
     }
     useEffect(() => {
         window.addEventListener("resize", handleResize);
@@ -66,7 +65,7 @@ const display = ({ open, setOpen }) => {
                     <img className={`${open ? "min-[320px]:w-10 lg:w-6 lg:h-6 min-[320px]:h-10" : "w-6 h-6"}`} src={HomeIcon} alt="" />
                     <p className={`${open ? "min-[320px]:text-xl lg:text-base" : "hidden"}`}>{open && "Home"}</p>
                 </Link></li>
-                <li className={`${open && "min-[320px]:w-10/12 md:w-3/12 lg:w-7/12"}`}><Link to={'/Products'} className='flex gap-4 justify-start items-center'>
+                <li className={`${open && "min-[320px]:w-10/12 md:w-3/12 lg:w-7/12"}`}><Link to={"/Products/:"} className='flex gap-4 justify-start items-center'>
                     <img className={`${open ? "min-[320px]:w-10 lg:w-6 lg:h-6 min-[320px]:h-10" : "w-6 h-6"}`} src={ProductsIcon} alt="" />
                     <p className={`${open ? "min-[320px]:text-xl lg:text-base" : "hidden"}`}>{open && "Products"}</p>
                 </Link></li>

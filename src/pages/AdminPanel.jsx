@@ -65,7 +65,6 @@ const Admin = () => {
         setNext(res.data.pages.next)
         setPrev(res.data.pages.prev)
         setMaxPages(res.data.pages.maxPages)
-        console.log("pagina: ", res.data)
 
       })
       .catch((err) => console.log(err));
@@ -81,8 +80,6 @@ const Admin = () => {
     return template
   }
   const handleSearch = (e) => {
-    console.log(e.target.value)
-
     filter(e.target.value)
   }
 
@@ -103,8 +100,6 @@ const Admin = () => {
     if (data.length > 0) {
       let filtrados = productos.filter(produ => produ.name.toLowerCase().includes(data.toLowerCase()))
       setProductosFiltrados(filtrados)
-      console.log(filtrados)
-
     } else {
       setProductosFiltrados(productos)
     }

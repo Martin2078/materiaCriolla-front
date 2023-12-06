@@ -49,7 +49,6 @@ const EditProduct = (props) => {
   }
 
   function addPhoto(e) {
-    console.log(e)
     setPhotos([...photos, e.target.value])
     producto.product_photo.push(e.target.value)
   }
@@ -76,7 +75,6 @@ const EditProduct = (props) => {
     producto.price = price
     producto.quantity = stock
     producto.product_photo = photos
-    console.log(producto)
     modificarProducto(producto)
     setChange(!change)
   }

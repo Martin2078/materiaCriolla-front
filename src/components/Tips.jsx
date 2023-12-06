@@ -11,7 +11,6 @@ const [show, setShow] = useState(false)
 const [data, setData] = useState("")
 
 const mostrar = (data)=>{
-    console.log(data)
     show? setShow(false) : setShow(true)
     setData(data)
 }

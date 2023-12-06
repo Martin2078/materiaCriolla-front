@@ -15,7 +15,6 @@ builder
       productos:[...state.productos, action.payload],
       
     };
-    console.log(newState)
     return newState;
   })
 );
