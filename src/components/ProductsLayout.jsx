@@ -10,7 +10,6 @@ import carrito from '../../public/images/añadir-a-carrito.png'
 const ProductsLayout = (props) => {
   const { productos, categoryChecked, setProductos, productosFiltrados, searchValue } = props
   const productoStore = useSelector((store) => store.productos)
-  console.log("aca: ", productoStore)
   const [change, setChange] = useState(false)
   const [detail, setDetail] = useState()
   useEffect(() => {
@@ -19,9 +18,7 @@ const ProductsLayout = (props) => {
   const dispatch = useDispatch()
 
   const agregarProducto = (id) => {
-    console.log("entra a funcion")
     const producto = productos.filter((elemento) => elemento._id === id)
-    console.log(producto)
     dispatch(agregarObjeto(producto))}
 
   const mapear = () => {

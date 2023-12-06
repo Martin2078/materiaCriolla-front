@@ -12,7 +12,7 @@ const addCheckout=checkoutActions.addCheckout
 const deleteCheckout=checkoutActions.deleteCheckout
 const Details = ({ detail, change, setChange }) => {
   const dispatch = useDispatch()
-  const user = useSelector(store => store.profile.user)
+  const {token, user} = useSelector(store => store.profile)
   let finded
   const [added,setAdded]=useState(false)
   const [actualPhoto, setActualPhoto] = useState(detail.product_photo[0])
@@ -21,6 +21,10 @@ const Details = ({ detail, change, setChange }) => {
   const { name, price } = detail
 
   async function addToCheckout() {
+    if (!token) {
+      toast.error('You must be logged before')
+      return
+    }
     let product_id = {
       quantity,
       _id: detail._id
@@ -44,12 +48,10 @@ const Details = ({ detail, change, setChange }) => {
   const handlePayment = async (product) => {
     try {
       const response = await dispatch(paymentAction(product))
-      console.log(response)
       if (response.payload.operation_type && response.payload.operation_type === 'regular_payment') {
         window.location.href = response.payload.init_point
       }
     } catch (error) {
-      console.log(error)
     }
   }
 
@@ -73,9 +75,7 @@ const Details = ({ detail, change, setChange }) => {
     return template
   }
 
-  function addPhoto(e) {
-    const photo = e.target.files[0]
-  }
+
   useEffect(()=>{
     if (user && user.checkout.length) {
       finded = user.checkout.map(product => product.product_id).find(product=>product._id===detail._id)
@@ -90,9 +90,9 @@ const Details = ({ detail, change, setChange }) => {
   },[user])
 
   return (
-    <div key={detail._id} className='fixed top-0 left-0 w-screen h-screen py-4 md:py-0 px-4 lg:px-0 bg-[#999] bg-opacity-50 flex justify-center items-center z-10'>
+    <div key={detail._id} className='fixed top-0 left-0 w-screen h-screen bg-[#999] bg-opacity-50 flex justify-center items-center z-10'>
       <Toaster position='top-center' toastOptions={{success:{duration:1000}}}/>
-      <div className='w-full h-full xl:w-8/12 lg:w-10/12 md:h-4/6 bg-white pt-10 md: md:py-10 px-5 flex flex-col md:flex-row relative rounded-lg'>
+      <div className='w-full md:w-11/12 h-full xl:w-8/12 lg:w-10/12 md:h-3/5 bg-white pt-10 md:py-10 px-5 flex flex-col md:flex-row relative rounded-lg'>
         <img onClick={() => setChange(!change)} className='w-10 h-10 cursor-pointer absolute top-1 right-1 md:top-2 md:right-2' src={close} alt="" />
         <div className='w-full relative md:w-1/2 md:h-full h-1/2 flex flex-col items-center border rounded-lg justify-between'>
           <div className='w-11/12 rounded-lg absolute bottom-2 bg-neutral-400 bg-opacity-50 border flex items-center justify-between border-black p-1 px-3'>
@@ -107,18 +107,18 @@ const Details = ({ detail, change, setChange }) => {
           </div>
           <img className='w-full max-h-64 object-contain rounded-lg' src={actualPhoto} alt="" />
         </div>
-        <div className='w-full h-fit md:w-1/2 md:h-full flex flex-col items-center justify-between py-4 overflow-y-scroll md:overflow-hidden'>
-          <div className={`w-5/6 h-fit md:h-5/6 flex flex-col gap-1 md:gap-4 lg:gap-2`}>
+        <div className='w-full h-fit md:w-1/2 md:h-full flex flex-col items-center justify-between py-4 md:px-5 overflow-y-scroll md:overflow-hidden'>
+          <div className={`w-full h-fit md:h-5/6 flex flex-col gap-1 md:gap-4 lg:gap-2 `}>
             <h3 className={`w-full h-1/6 font-bold text-3xl md:text-4xl}`}>{detail.name}</h3>
-            <div className='flex flex-col gap-2 h-[18vh]'>
+            <div className='flex flex-col gap-2 h-[25vh] lg:h-[18vh]'>
               <p className='text-xl'>Description</p>
-              <div className='w-full max-h-[14vh] md:h-full border overflow-y-auto p-1 px-2 rounded-lg'>
+              <div className='w-full h-full border overflow-y-auto p-1 px-2 rounded-lg'>
                 <p className='h-full' >{detail.description}</p>
               </div>
             </div>
             <p className='text-2xl'>${detail.price}</p>
             <p className='text-lg font-semibold'>Stock: {detail.quantity}</p>
-            <div className='w-full h-2/6 md:h-1/6 flex flex-col gap-1'>
+            <div className='w-full max-h-2/6 md:h-1/6 flex flex-col gap-1'>
               <p className='text-lg font-semibold'>Colors</p>
               <div className='w-full h-fit flex gap-2 '>
                 {detail.colors.length == 0 ? <div className='h-8 flex items-center justify-center py-1 px-2 w-fit border border-black border-dashed'>
@@ -138,7 +138,7 @@ const Details = ({ detail, change, setChange }) => {
                 ?
                 <input className='border border-black px-1' placeholder='Quantity' type="text" defaultValue={1} onChange={(e) => setQuantity(e.target.value)} />
                 :
-                (<select onClick={(e) => { getQuantity(e); console.log(e.target.value) }} name="quantity" id="">
+                (<select onClick={(e) => { getQuantity(e)}} name="quantity" id="">
                   {detail.quantity > 4 ? <>
                     <option value="1">1 unit</option>
                     <option value="2">2 units</option>
@@ -149,7 +149,7 @@ const Details = ({ detail, change, setChange }) => {
                 </select>)}
             </div>
           </div>
-          <div className='flex w-5/6 h-10 gap-5'>
+          <div className='flex w-full h-10 gap-5'>
             <button
               onClick={() => handlePayment([{product_id: {name: name, price: price}, quantity: quantity}])}
               className="w-9/12 rounded-lg text-white text-xl bg-[url('/images/madera.png')]"

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import login from '../redux/actions/singInAction'
 import productsAction from '../redux/actions/productosAction'
 import categoriesAction from '../redux/actions/categoriesAction'
+import { Link } from 'react-router-dom'
 
 const MyCarousel = () => {
   const dispatch = useDispatch()
@@ -60,39 +61,39 @@ const MyCarousel = () => {
             <img className='h-[16vh] self-center' src={products[0]?.product_photo} alt="" />
             <h3 className="text-lg font-semibold h-14">{products[0]?.name}</h3>
             <p className='overflow-y-auto h-24 w-12/12'>{products[0]?.description}</p>
-            <button className="mt-2  text-white px-4 py-2 rounded-md " style={{
+            <Link to={`/Products/${products[0]?.name}`}><button className="mt-2 w-full font-semibold text-lg text-white px-4 py-1 rounded-md " style={{
               backgroundImage: `url('../public/images/madera.png')`, 
               backgroundSize: 'cover', 
             }}>
-              Buy
-            </button>
+              View more
+            </button></Link>
           </div>
           <div className="bg-white flex flex-col p-4 shadow-md rounded-md">
             <img className='h-[16vh] self-center' src={products[1]?.product_photo} alt="" />
             <h3 className="text-lg font-semibold h-14">{products[1]?.name}</h3>
             <p className='overflow-y-auto h-24 w-12/12'>{products[1]?.description}</p>
-            <button className="mt-2  text-white px-4 py-2 rounded-md " style={{
+            <Link to={`/Products/${products[1]?.name}`}><button className="mt-2 w-full font-semibold text-lg text-white px-4 py-1 rounded-md " style={{
               backgroundImage: `url('../public/images/madera.png')`, 
               backgroundSize: 'cover', 
             }}>
-              Buy
-            </button>
+              View more
+            </button></Link>
           </div>
           <div className="bg-white flex flex-col p-4 shadow-md rounded-md">
             <img className='h-[16vh] self-center' src={products[2]?.product_photo} alt="" />
             <h3 className="text-lg font-semibold h-14">{products[2]?.name}</h3>
             <p className='overflow-y-auto h-24 w-12/12'>{products[2]?.description}</p>
-            <button className="mt-2  text-white px-4 py-2 rounded-md " style={{
+            <Link to={`/Products/${products[2]?.name}`}><button className="mt-2 w-full font-semibold text-lg  text-white px-4 py-1 rounded-md " style={{
               backgroundImage: `url('../public/images/madera.png')`, 
               backgroundSize: 'cover', 
             }}>
-              Buy
-            </button>
+              View more
+            </button></Link>
           </div>
         </div>
       </div>
       <div className="w-1/4 h-[100vh] flex items-center">
-        <img className='h-[90vh] rounded-sm' src="/images/tradicion.jpg" alt="" />
+        <img className='h-[90vh] rounded-sm ' src="/images/tradicion.jpg" alt="" />
       </div>
     </div>
   );

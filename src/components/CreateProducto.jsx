@@ -60,7 +60,6 @@ const handleSubmit=()=>{
     producto.user_id = user_id;
     producto.category_id = categoria.current.value;
     producto.colors = color.current.value;
-    console.log(producto)
     if(validate(producto)){
         handleCreate(producto)
         setShow(false)

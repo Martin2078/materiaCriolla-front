@@ -6,7 +6,7 @@ import SignIn from '../pages/SignIn'
 import Profile from '../pages/Profile'
 import Register from '../pages/Register'
 import Checkout from '../pages/Checkout'
-import Products from '../pages/Productos'
+import Products from '../pages/Products'
 import AboutUs from '../pages/AboutUs'
 import Admin from '../pages/AdminPanel'
 
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
                 element: <Checkout />,
             },
             {
-                path: "/Products",
+                path: "/Products/:itemName",
                 element: <Products/>, 
             },
             {

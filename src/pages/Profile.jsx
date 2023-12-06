@@ -30,7 +30,6 @@ const Profile = () => {
   }
   async function changeData() {
 
-    console.log(data.birthdate);
     if (data.birthdate.slice(0,4)>2004) {
       toast.error("User must be over 18 years old!")
       setData({ ...user, birthdate: user.birthdate.slice(0,10).split("-").reverse().join("/") })
@@ -51,7 +50,6 @@ const Profile = () => {
       dispatch(userChangeAction(data3))
         .then(res => {
           if (res.payload.error) {
-            console.log(res.payload.error);
             res.payload.error.error.forEach((element) => toast.error(element))
             setRenderizar(true)
           } else {

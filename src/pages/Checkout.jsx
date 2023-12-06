@@ -60,7 +60,6 @@ const Checkout = () => {
   const handlePayment = async (products) => {
     try {
       const response = await dispatch(paymentAction(products))
-      console.log(response)
       if (response.payload.operation_type && response.payload.operation_type === 'regular_payment') {
         window.location.href = response.payload.init_point
       }

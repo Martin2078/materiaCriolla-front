@@ -39,7 +39,6 @@ function SignIn() {
     const userData = { email, password }; // Datos del usuario a enviar al servidor
     dispatch(Login(userData))
       .then(res => {
-        console.log(res);
         if (res.payload.error) {
           toast.error(res.payload.error);
         }
@@ -53,8 +52,6 @@ function SignIn() {
       if (localStorage.length > 0) {
         const tokenStorage = localStorage.getItem('token')
         const userStorage = JSON.parse(localStorage.getItem('user'))
-        console.log(tokenStorage);
-        console.log(userStorage);
         const data = { user: userStorage, token: tokenStorage }
         dispatch(Login(data))
       }
